@@ -6,11 +6,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#ede9e3">
-    <title>Biologie Flashcards</title>
+    <title>Biology Flashcards</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VkZTllMyIgcng9IjQwIi8+PHBhdGggZmlsbD0iI2ZmOGZiMyIgZD0iTTQyLjcsLTczLjRDNTUuOSwtNjUuNyw2Ny42LC01NC42LDc2LjQsLTQxLjZDODUuMiwtMjguNSw5MS4xLC0xNC4zLDkwLjIsLTAuNUM4OS4zLDEzLjMsODEuNSwyNi42LDcyLjcsMzguOEM2My45LDUxLDU0LjEsNjIuMSw0MS44LDcwLjVDMjkuNSw3OC44LDE0LjgsODQuNCwwLjEsODQuMkMtMTQuNiw4NCwtMjkuMiw3OC4xLC00Mi4yLDY5LjlDLTU1LjIsNjEuNywtNjYuNiw1MS4yLC03NC42LDM4LjRDLTgyLjYsMjUuNiwtODcuMiwxMC42LC04Ni4zLC00LjJDLTg1LjQsLTE5LC03OSwtMzMuNSwtNjkuNiwtNDQuN0MtNjAuMiwtNTUuOSwtNDcuOSwtNjMuOCwtMzUuMSwtNzEuN0MtMjIuMywtNzkuNiwtMTEuMSwtODcuNSwyLjQsLTkxLjZDMTUuOSwtOTUuNywzMS44LC05NS45LDQyLjcsLTczLjRaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMDAgMTAwKSIvPjxjaXJjbGUgY3g9IjgwIiBjeT0iOTAiIHI9IjEyIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjgzIiBjeT0iOTAiIHI9IjUiIGZpbGw9IiMxZTFlMWUiLz48Y2lyY2xlIGN4PSIxMTUiIGN5PSI5MCIgcj0iMTIiIGZpbGw9IndoaXRlIi8+PGNpcmNsZSBjeD0iMTE4IiBjeT0iOTAiIHI9IjUiIGZpbGw9IiMxZTFlMWUiLz48L3N2Zz4=">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VkZTllMyIgcng9IjQwIi8+PHBhdGggZmlsbD0iI2ZmOGZiMyIgZD0iTTQyLjcsLTczLjRDNTUuOSwtNjUuNyw2Ny42LC01NC42LDc2LjQsLTQxLjZDODUuMiwtMjguNSw5MS4xLC0xNC4zLDkwLjIsLTAuNUM4OS4zLDEzLjMsODEuNSwyNi42LDcyLjcsMzguOEM2My45LDUxLDU0LjEsNjIuMSw0MS44LDcwLjVDMjkuNSw3OC44LDE0LjgsODQuNCwwLjEsODQuMkMtMTQuNiw4NCwtMjkuMiw3OC4xLC00Mi4yLDY5LjlDLTU1LjIsNjEuNywtNjYuNiw1MS4yLC03NC42LDM4LjRDLTgyLjYsMjUuNiwtODcuMiwxMC42LC04Ni4zLC00LjJDLTg1LjQsLTE5LC03OSwtMzMuNSwtNjkuNiwtNDQuN0MtNjAuMiwtNTUuOSwtNDcuOSwtNjMuOCwtMzUuMSwtNzEuN0MtMjIuMywtNzkuNiwtMTEuMSwtODcuNSwyLjQsLTkxLjZDMTUuOSwtOTUuNywzMS44LC05NS45LDQyLjcsLTczLjRaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMDAgMTAwKSIvPjxjaXJjbGUgY3g9IjgwIiBjeT0iOTAiIHI9IjEyIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjgzIiBjeT0iOTAiIHI9IjUiIGZpbGw9IiMxZTFlMWUiLz48Y2lyY2xlIGN4PSIxMTUiIGN5PSI5MCIgcj0iMTIiIGZpbGw9IndoaXRlIi8+PGNpcmNsZSBjeD0iMTE4IiBjeT0iOTAiIHI9IjUiIGZpbGw9IiMxZTFlMWUiLz48L3N2Zz4=">
 
     <style>
         :root {
-            /* Minimalist Color Palette matching the references */
+            var(--bg-cream): #ede9e3;
             --bg-cream: #ede9e3;
             --text-dark: #1e1e1e;
             --blob-pink: #ff8fb3;
@@ -31,6 +34,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            -webkit-tap-highlight-color: transparent; /* Verhindert das blaue Flackern auf Android beim Tippen */
         }
 
         /* --- HOME SCREEN --- */
@@ -76,7 +80,7 @@
 
         .deck-card {
             border-radius: 28px;
-            background-color: var(--blob-sand); /* Base color behind the blob */
+            background-color: var(--blob-sand); 
             color: var(--text-dark);
             position: relative;
             overflow: hidden;
@@ -89,7 +93,6 @@
             cursor: pointer;
         }
 
-        /* The SVG Blob Background */
         .deck-blob {
             position: absolute;
             bottom: -10%;
@@ -264,7 +267,7 @@
             font-weight: 900;
             line-height: 1.1;
             letter-spacing: -1px;
-            overflow: hidden; /* For Blob */
+            overflow: hidden; 
         }
 
         .card-back {
@@ -290,16 +293,6 @@
         .card-back li { margin-bottom: 10px; }
         .card-back a { color: var(--text-dark); font-weight: 800; text-decoration: underline; }
         .card-back img { max-width: 100%; border-radius: 16px; margin-bottom: 15px; border: 1px solid #eee;}
-
-        /* Front Blob Decoration */
-        .front-blob {
-            position: absolute;
-            bottom: -20px;
-            left: -20px;
-            width: 150px;
-            opacity: 0.2;
-            pointer-events: none;
-        }
 
         /* Desktop Controls (Hidden on Mobile) */
         .desktop-controls {
@@ -353,7 +346,7 @@
 
     <div id="home-screen">
         <div class="category-header">
-            <h1 class="category-title">Biologie</h1>
+            <h1 class="category-title">Biology</h1>
             <div class="category-subtitle">Anatomie, Physiologie & Pathologie</div>
         </div>
         <div class="deck-list" id="deck-list">
@@ -386,40 +379,45 @@
     </div>
 
     <script>
-        // --- BLOB SVG GENERATOR ---
-        // Erzeugt die schönen abstrakten Formen mit den Augen für die Karten
-        function getBlobSVG(color) {
+        // --- BLOB SVG GENERATOR WITH DYNAMIC EYES ---
+        // Die Augen bekommen nun basierend auf dem Index kleine Offsets für mehr Persönlichkeit
+        function getBlobSVG(color, index) {
+            // Generiert vorhersehbare, aber unterschiedliche Augen-Positionen pro Karte
+            const yOffset = (index % 3) * 12 - 6; 
+            const xOffset = (index % 2) * 10 - 5; 
+            const pupilX = (index % 4) * 3 - 3;   
+            const pupilY = (index % 3) * 3 - 2;   
+
             return `
             <svg class="deck-blob" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                 <path fill="${color}" d="M42.7,-73.4C55.9,-65.7,67.6,-54.6,76.4,-41.6C85.2,-28.5,91.1,-14.3,90.2,-0.5C89.3,13.3,81.5,26.6,72.7,38.8C63.9,51,54.1,62.1,41.8,70.5C29.5,78.8,14.8,84.4,0.1,84.2C-14.6,84,-29.2,78.1,-42.2,69.9C-55.2,61.7,-66.6,51.2,-74.6,38.4C-82.6,25.6,-87.2,10.6,-86.3,-4.2C-85.4,-19,-79,-33.5,-69.6,-44.7C-60.2,-55.9,-47.9,-63.8,-35.1,-71.7C-22.3,-79.6,-11.1,-87.5,2.4,-91.6C15.9,-95.7,31.8,-95.9,42.7,-73.4Z" transform="translate(100 100)" />
-                <circle cx="80" cy="80" r="12" fill="white" />
-                <circle cx="83" cy="80" r="5" fill="#1e1e1e" />
-                <circle cx="115" cy="80" r="12" fill="white" />
-                <circle cx="118" cy="80" r="5" fill="#1e1e1e" />
+                <circle cx="${80 + xOffset}" cy="${80 + yOffset}" r="12" fill="white" />
+                <circle cx="${83 + xOffset + pupilX}" cy="${80 + yOffset + pupilY}" r="5" fill="#1e1e1e" />
+                <circle cx="${115 + xOffset}" cy="${80 + yOffset}" r="12" fill="white" />
+                <circle cx="${118 + xOffset + pupilX}" cy="${80 + yOffset + pupilY}" r="5" fill="#1e1e1e" />
             </svg>`;
         }
 
-        // --- THE METICULOUSLY CHECKED DATA ---
-        // Absolut jedes Detail, Wort für Wort, aus dem originalen PDF Dokument.
+        // --- THE DATA WITH CITATIONS ---
         const data = {
             "Zytologie (Zelle & Zellkern)": {
                 color: "var(--blob-pink)",
                 cards: [
                     {
-                        q: "Zellkern (Nucleus)",
-                        a: "Der Zellkern ist das Zentrum der Zelle.<br><br>Die Hauptfunktionen sind die Steuerung wichtiger Stoffwechselprozesse wie zum Beispiel der Zellteilung.<br><br>Er dient der Lagerung der Erbinformationen (DNA) in Form von Chromosomen."
+                        q: "Zellkern (Nucleus) [cite: 3]",
+                        a: "Der Zellkern ist das Zentrum der Zelle. [cite: 4]<br><br>Die Hauptfunktionen sind die Steuerung wichtiger Stoffwechselprozesse wie zum Beispiel der Zellteilung. [cite: 4]<br><br>Er dient der Lagerung der Erbinformationen (DNA) in Form von Chromosomen. [cite: 4]"
                     },
                     {
-                        q: "Kernkörperchen (Nucleolus)",
-                        a: "Der Nucleolus ist eine kleine, kugelförmige Struktur innerhalb des Zellkerns.<br><br>Er besteht aus DNA, RNA, Proteinen und Enzymen.<br><br>Spielt eine wichtige Rolle bei der Synthese von Ribosomen und somit der Zellteilung."
+                        q: "Kernkörperchen (Nucleolus) [cite: 5]",
+                        a: "Der Nucleolus ist eine kleine, kugelförmige Struktur innerhalb des Zellkerns. [cite: 6]<br><br>Er besteht aus DNA, RNA, Proteinen und Enzymen. [cite: 7]<br><br>Spielt eine wichtige Rolle bei der Synthese von Ribosomen und somit der Zellteilung. [cite: 7]"
                     },
                     {
-                        q: "Zellskelett (Mikrotubuli)",
-                        a: "Das Zytoskelett ist der Stütz- und Bewegungsapparat der Zelle.<br><br>Es ist an der Zellteilung und an der Zellmotilität (Bewegung) beteiligt."
+                        q: "Zellskelett (Mikrotubuli) [cite: 8]",
+                        a: "Das Zytoskelett ist der Stütz- und Bewegungsapparat der Zelle. [cite: 9]<br><br>Es ist an der Zellteilung und an der Zellmotilität (Bewegung) beteiligt. [cite: 9]"
                     },
                     {
-                        q: "Zellplasma (Zytoplasma)",
-                        a: "Zytosol und Zytoskelett (fester Bestandteil des Zytoskeletts) zusammen werden als Zytoplasma bezeichnet.<br><br>Das Zytosol ist der flüssige Bestandteil des Zytoplasmas. Es enthält viele chemische Substanzen wie Wasser, Proteine, Lipide, Ribonukleinsäure, Kohlenhydrate, Ionen und Enzyme.<br><br>Wichtigste Aufgaben sind die Steuerung verschiedener Stoffwechselprozesse und der Abbau von schädlichen Substanzen."
+                        q: "Zellplasma (Zytoplasma) [cite: 10]",
+                        a: "Zytosol und Zytoskelett (fester Bestandteil des Zytoskeletts) zusammen werden als Zytoplasma bezeichnet. [cite: 11]<br><br>Das Zytosol ist der flüssige Bestandteil des Zytoplasmas. [cite: 11] Es enthält viele chemische Substanzen wie Wasser, Proteine, Lipide, Ribonukleinsäure, Kohlenhydrate, Ionen und Enzyme. [cite: 12, 13]<br><br>Wichtigste Aufgaben sind die Steuerung verschiedener Stoffwechselprozesse und der Abbau von schädlichen Substanzen. [cite: 14]"
                     }
                 ]
             },
@@ -427,28 +425,28 @@
                 color: "var(--blob-olive)",
                 cards: [
                     {
-                        q: "Zellmembran (Plasmamembran)",
-                        a: "Alle Zellen sind durch eine Membran (Haut) vom extrazellulären Raum getrennt. Auch innerhalb der Zellen sind die Zellorganellen durch Membranen zum Zytoplasma abgegrenzt = Barriere.<br><br>Membranen bestehen aus einer Lipiddoppelschicht (Ausnahme Zellkern und Mitochondrien: sind von zwei Membranen umhüllt).<br><br>In der Doppellipidschicht sind weitere Lipide und auch Proteine eingebaut. Sie ermöglichen Stofftransport und Kommunikation mit anderen Zellen."
+                        q: "Zellmembran (Plasmamembran) [cite: 15]",
+                        a: "Alle Zellen sind durch eine Membran (Haut) vom extrazellulären Raum getrennt. [cite: 16] Auch innerhalb der Zellen sind die Zellorganellen durch Membranen zum Zytoplasma abgegrenzt = Barriere. [cite: 17, 18]<br><br>Membranen bestehen aus einer Lipiddoppelschicht (Ausnahme Zellkern und Mitochondrien: sind von zwei Membranen umhüllt). [cite: 19]<br><br>In der Doppellipidschicht sind weitere Lipide und auch Proteine eingebaut. [cite: 20] Sie ermöglichen Stofftransport und Kommunikation mit anderen Zellen. [cite: 21]"
                     },
                     {
-                        q: "Mitochondrien",
-                        a: "Mitochondrien sind Zellorganellen, in denen im Zuge der Zellatmung Energie produziert wird.<br><br>Daher werden sie auch als Kraftwerke der Zelle bezeichnet. Besitzen zwei Membranen und sowohl eigene DNA als auch Ribosomen.<br><br>Ihre Hauptaufgabe besteht in der ATP-Synthese."
+                        q: "Mitochondrien [cite: 22]",
+                        a: "Mitochondrien sind Zellorganellen, in denen im Zuge der Zellatmung Energie produziert wird. [cite: 22]<br><br>Daher werden sie auch als Kraftwerke der Zelle bezeichnet. [cite: 23] Besitzen zwei Membranen und sowohl eigene DNA als auch Ribosomen. [cite: 23]<br><br>Ihre Hauptaufgabe besteht in der ATP-Synthese. [cite: 24]"
                     },
                     {
-                        q: "Ribosomen & Golgi-Apparat",
-                        a: "<h4>Ribosomen</h4>Kommen frei in der Zelle oder gebunden an das raue endoplasmatische Retikulum vor. Sind im Zuge der Proteinbiosynthese daran beteiligt, dass Proteine auf Grundlage der Bauanleitung im Zellkern synthetisiert werden.<br><br><h4>Golgi-Apparat</h4>Ist ein Zellorganell und das Zentrum des Stofftransports in der Zelle. Neben dem Transport von Proteinen und Lipiden werden hier auch die im ER begonnenen Modifikationen fortgeführt."
+                        q: "Ribosomen [cite: 25] & Golgi-Apparat [cite: 33]",
+                        a: "<h4>Ribosomen</h4>Kommen frei in der Zelle oder gebunden an das raue endoplasmatische Retikulum vor. [cite: 26] Sind im Zuge der Proteinbiosynthese daran beteiligt, dass Proteine auf Grundlage der Bauanleitung im Zellkern synthetisiert werden. [cite: 27]<br><br><h4>Golgi-Apparat</h4>Ist ein Zellorganell und das Zentrum des Stofftransports in der Zelle. [cite: 34] Neben dem Transport von Proteinen und Lipiden werden hier auch die im ER begonnenen Modifikationen fortgeführt. [cite: 35]"
                     },
                     {
-                        q: "Endoplasmatisches Retikulum (ER)",
-                        a: "Beim ER unterscheidet man raues und glattes ER.<br><br>Ist von Membranen umgeben und über Kernporen mit dem Zellkern verbunden.<br><br>Am rauen ER sind viele Ribosomen angeheftet, welche Proteine herstellen.<br><br>Am glatten ER gibt es keine Ribosomen; stattdessen ist diese Struktur für den Abbau von Giften und Medikamenten zuständig oder an der Bildung von Lipiden oder Hormonen beteiligt."
+                        q: "Endoplasmatisches Retikulum (ER) [cite: 28]",
+                        a: "Beim ER unterscheidet man raues und glattes ER. [cite: 29]<br><br>Ist von Membranen umgeben und über Kernporen mit dem Zellkern verbunden. [cite: 30]<br><br>Am rauen ER sind viele Ribosomen angeheftet, welche Proteine herstellen. [cite: 31]<br><br>Am glatten ER gibt es keine Ribosomen; stattdessen ist diese Struktur für den Abbau von Giften und Medikamenten zuständig oder an der Bildung von Lipiden oder Hormonen beteiligt. [cite: 32]"
                     },
                     {
-                        q: "Lysosomen",
-                        a: "Die membranbegrenzten, kugeligen Zellorganellen sind die 'Recycling-Anlagen' der Zelle.<br><br>Vesikel, in denen sich bestimmte Abbauenzyme befinden. Dienen dazu, verschiedene aufgenommene Stoffe zu zersetzen (für die Zelle nutzbare Produkte entstehen).<br><br>Bauen beschädigte Zellbestandteile ab, sodass die Bausteine wieder genutzt werden können."
+                        q: "Lysosomen [cite: 36]",
+                        a: "Die membranbegrenzten, kugeligen Zellorganellen sind die 'Recycling-Anlagen' der Zelle. [cite: 37]<br><br>Vesikel, in denen sich bestimmte Abbauenzyme befinden. [cite: 37] Dienen dazu, verschiedene aufgenommene Stoffe zu zersetzen (für die Zelle nutzbare Produkte entstehen). [cite: 37]<br><br>Bauen beschädigte Zellbestandteile ab, sodass die Bausteine wieder genutzt werden können. [cite: 37]"
                     },
                     {
-                        q: "Zentriolen & Zentromer",
-                        a: "<h4>Zentriolen</h4>Ein Zentriol besteht aus 3x9 Mikrotubuli, ist länglich und röhrenförmig. Spielt eine wichtige Rolle während Zellteilung, da hier jeweils zwei Zentriolen das Zentromer mit ausbilden. Richtiges Zellorganell für Mitose/Meiose.<br><br><h4>Zentromer</h4>Region eines Chromosoms, die Schwesterchromatiden zusammenhält und in der Meta-/Anaphase von Mitose/Meiose als Ansatzpunkt für Spindelfasern dient (primäre Einschnürungsstelle). Teilt das Chromosom in zwei oft unterschiedlich lange Schenkel oder Arme."
+                        q: "Zentriolen [cite: 38] & Zentromer [cite: 43]",
+                        a: "<h4>Zentriolen</h4>Ein Zentriol besteht aus 3x9 Mikrotubuli [cite: 39], ist länglich und röhrenförmig. [cite: 40] Spielt eine wichtige Rolle während Zellteilung, da hier jeweils zwei Zentriolen das Zentromer mit ausbilden. [cite: 40] Richtiges Zellorganell für Mitose/Meiose. [cite: 42]<br><br><h4>Zentromer</h4>Region eines Chromosoms, die Schwesterchromatiden zusammenhält und in der Meta-/Anaphase von Mitose/Meiose als Ansatzpunkt für Spindelfasern dient (primäre Einschnürungsstelle). [cite: 44, 45] Teilt das Chromosom in zwei oft unterschiedlich lange Schenkel oder Arme. [cite: 46]"
                     }
                 ]
             },
@@ -456,28 +454,28 @@
                 color: "var(--blob-navy)",
                 cards: [
                     {
-                        q: "Was ist DNA (DNS)?",
-                        a: "Erbinformation unseres Körpers.<br><br>Makromolekül aus dem Zucker Desoxyribose, Phosphaten und vier verschiedenen Basen (Cytosin, Guanin, Adenin, Thymin). In einer Doppelhelix angeordnet.<br><br>Trägt die Gene mit den für die Zellfunktion notwendigen Informationen (unser Geschlecht, Haar- oder Augenfarbe).<br><br>Kommt in allen Lebewesen und bei vielen Viren vor."
+                        q: "Was ist DNA (DNS)? [cite: 47]",
+                        a: "Erbinformation unseres Körpers. [cite: 48]<br><br>Makromolekül aus dem Zucker Desoxyribose, Phosphaten und vier verschiedenen Basen (Cytosin, Guanin, Adenin, Thymin). [cite: 48] In einer Doppelhelix angeordnet. [cite: 49]<br><br>Trägt die Gene mit den für die Zellfunktion notwendigen Informationen (unser Geschlecht, Haar- oder Augenfarbe). [cite: 50, 51]<br><br>Kommt in allen Lebewesen und bei vielen Viren vor. [cite: 52]"
                     },
                     {
-                        q: "Was ist RNA (RNS)?",
-                        a: "Ribonukleinsäuren sind organische Säuren, massgebliche Rolle bei der Neubildung von Proteinen in Zellen (Proteinbiosynthese).<br><br>Einsträngige, fadenförmige Makromoleküle im Zellkern und Zytoplasma.<br><br>Nukleotide bestehen aus Phosphatrest, einem Zuckermolekül und organischer Base (Cytosin, Guanin, Adenin, Uracil). Werden auf Grundlage der Informationen auf der DNA erstellt."
+                        q: "Was ist RNA (RNS)? [cite: 53]",
+                        a: "Ribonukleinsäuren sind organische Säuren, massgebliche Rolle bei der Neubildung von Proteinen in Zellen (Proteinbiosynthese). [cite: 54]<br><br>Einsträngige, fadenförmige Makromoleküle im Zellkern und Zytoplasma. [cite: 55]<br><br>Nukleotide bestehen aus Phosphatrest, einem Zuckermolekül und organischer Base (Cytosin, Guanin, Adenin, Uracil). [cite: 57, 58] Werden auf Grundlage der Informationen auf der DNA erstellt. [cite: 56]"
                     },
                     {
-                        q: "Unterschied DNA zur RNA",
-                        a: "Der Hauptunterschied der DNA zur RNA liegt in:<br><br><ul><li>Unterschiedlichen Basen</li><li>Unterschiedlichen Grundbausteinen</li><li>Unterschiedlichem Aufbau und Funktion/en</li></ul>"
+                        q: "Unterschied DNA zur RNA [cite: 59]",
+                        a: "Der Hauptunterschied der DNA zur RNA liegt in: [cite: 60]<br><br><ul><li>Unterschiedlichen Basen [cite: 60]</li><li>Unterschiedlichen Grundbausteinen [cite: 60]</li><li>Unterschiedlichem Aufbau und Funktion/en [cite: 60]</li></ul>"
                     },
                     {
-                        q: "Arten von Zellteilungen (Mitose & Meiose)",
-                        a: "Zwei Arten der Kernteilung bei eukaryotischen Zellen.<br><br><h4>Mitose</h4>Ziel ist die Vermehrung von Zellen. Entstandene Tochterzellen müssen genetisch identisch mit der Mutterzelle sein. Besteht aus vier Phasen (2 identische Tochterkerne).<br><br><h4>Meiose (Reifeteilung)</h4>Erzeugt Keimzellen oder Geschlechtszellen (wichtig bei Befruchtung/sexueller Fortpflanzung). Besteht aus zwei Schritten mit jeweils vier Phasen und bringt vier genetisch nicht identische Tochterkerne hervor."
+                        q: "Arten von Zellteilungen (Mitose & Meiose) [cite: 61]",
+                        a: "Zwei Arten der Kernteilung bei eukaryotischen Zellen. [cite: 63]<br><br><h4>Mitose</h4>Ziel ist die Vermehrung von Zellen. [cite: 64] Entstandene Tochterzellen müssen genetisch identisch mit der Mutterzelle sein. [cite: 65] Besteht aus vier Phasen (2 identische Tochterkerne). [cite: 70]<br><br><h4>Meiose (Reifeteilung)</h4>Erzeugt Keimzellen oder Geschlechtszellen (wichtig bei Befruchtung/sexueller Fortpflanzung). [cite: 66, 67] Besteht aus zwei Schritten mit jeweils vier Phasen und bringt vier genetisch nicht identische Tochterkerne hervor. [cite: 71]"
                     },
                     {
-                        q: "Der Zellzyklus (G1, G0, S-Phase)",
-                        a: "Proliferierende (sich teilende/vermehrende) Zellen durchlaufen den Zyklus. Gliedert sich in Interphase und Mitosephase.<br><br><ul><li><b>G1-Phase:</b> Vorbereitung auf Zellteilung, Zelle wächst stark an. Zellorganellen und Zellplasma werden durch verstärkte Proteinbiosynthese gebildet. Entstehen grosse Mengen an RNA und Vorstufen der DNA.</li><li><b>G0-Phase:</b> Zellen machen Pause, wenn sie sich nicht weiter vermehren sollen oder können.</li><li><b>S-Phase (Synthese):</b> Es findet eine DNA-Replikation statt (Zelle verdoppelt genetisches Material).</li></ul><a href='https://studyflix.de/biologie/zellzyklus-2585' target='_blank'>Zellzyklus Link</a>"
+                        q: "Der Zellzyklus (G1, G0, S-Phase) [cite: 72]",
+                        a: "Proliferierende (sich teilende/vermehrende) Zellen durchlaufen den Zyklus. [cite: 73] Gliedert sich in Interphase und Mitosephase. [cite: 75]<br><br><ul><li><b>G1-Phase:</b> Vorbereitung auf Zellteilung, Zelle wächst stark an. [cite: 89] Zellorganellen und Zellplasma werden durch verstärkte Proteinbiosynthese gebildet. [cite: 90] Entstehen grosse Mengen an RNA und Vorstufen der DNA. [cite: 90]</li><li><b>G0-Phase:</b> Zellen machen Pause, wenn sie sich nicht weiter vermehren sollen oder können. [cite: 91, 92]</li><li><b>S-Phase (Synthese):</b> Es findet eine DNA-Replikation statt (Zelle verdoppelt genetisches Material). [cite: 93]</li></ul><a href='https://studyflix.de/biologie/zellzyklus-2585' target='_blank'>Zellzyklus Link [cite: 88]</a>"
                     },
                     {
-                        q: "Der Zellzyklus (G2 & M-Phase) & DNA-Schäden",
-                        a: "<ul><li><b>G2-Phase:</b> Bereitet sich für Mitose vor. Wächst durch Flüssigkeitsaufnahme stark an, es werden Mitoseproteine gebildet. Synthetisiert RNA und löst vorhandene Kontakte zu anderen Zellen.</li><li><b>M-Phase:</b> Bildung des Spindelapparates, Chromatiden Trennung, Zellteilung (Mitose) und Cytokinese.</li></ul><br><b>Strahlenempfindlichkeit:</b> In der M-Phase am grössten, weil dort die Zellteilung stattfindet.<br><br><b>DNA-Schäden:</b> Kritischste Struktur, weil ein Schaden an der DNA nicht oder falsch repariert werden kann und es so zu Mutationen = Tumorentstehung kommen kann."
+                        q: "Der Zellzyklus (G2 & M-Phase) & DNA-Schäden [cite: 98, 100]",
+                        a: "<ul><li><b>G2-Phase:</b> Bereitet sich für Mitose vor. [cite: 94] Wächst durch Flüssigkeitsaufnahme stark an, es werden Mitoseproteine gebildet. [cite: 95] Synthetisiert RNA und löst vorhandene Kontakte zu anderen Zellen. [cite: 96]</li><li><b>M-Phase:</b> Bildung des Spindelapparates, Chromatiden Trennung, Zellteilung (Mitose) und Cytokinese. [cite: 97]</li></ul><br><b>Strahlenempfindlichkeit:</b> In der M-Phase am grössten, weil dort die Zellteilung stattfindet. [cite: 99]<br><br><b>DNA-Schäden:</b> Kritischste Struktur, weil ein Schaden an der DNA nicht oder falsch repariert werden kann und es so zu Mutationen = Tumorentstehung kommen kann. [cite: 101]"
                     }
                 ]
             },
@@ -485,28 +483,28 @@
                 color: "var(--blob-pink)",
                 cards: [
                     {
-                        q: "Magen (Gaster)",
-                        a: "Muskuläres Hohlorgan, liegt zwischen Oesophagus (Speiseröhre) und Duodenum.<br><br>Aufgenommene Nahrung wird im Mund durch Kauen mechanisch zerkleinert (erste Verdauungsenzyme). Der durch Kaubewegungen mit Speichel vermischte Nahrungsbissen (Bolus) wird geschluckt und gelangt über Oesophagus in den Magen.<br><br>Dort gespeichert, zerkleinert, homogenisiert, angedaut und portionsweise an das Duodenum weitergegeben.<br><br>Proximaler Teil: speichernd. Distaler Teil: Durchmischung und Weitertransport."
+                        q: "Magen (Gaster) [cite: 103]",
+                        a: "Muskuläres Hohlorgan, liegt zwischen Oesophagus (Speiseröhre) und Duodenum. [cite: 104]<br><br>Aufgenommene Nahrung wird im Mund durch Kauen mechanisch zerkleinert (erste Verdauungsenzyme). [cite: 106] Der durch Kaubewegungen mit Speichel vermischte Nahrungsbissen (Bolus) wird geschluckt und gelangt über Oesophagus in den Magen. [cite: 107, 108]<br><br>Dort gespeichert, zerkleinert, homogenisiert, angedaut und portionsweise an das Duodenum weitergegeben. [cite: 108]<br><br>Proximaler Teil: speichernd. Distaler Teil: Durchmischung und Weitertransport. [cite: 109]"
                     },
                     {
-                        q: "Dünndarm (Duodenum) - Funktion",
-                        a: "Aufgabe: Nahrungsbestandteile weiter zerkleinern.<br><br>Zerlegte Stoffe werden über die Darmwand zurück in den Blutkreislauf oder das Lymphsystem aufgenommen = Resorption.<br><br><h4>Zwölffingerdarm (Duodenum)</h4>Zentrale Rolle bei Verkleinerung. Die grosse Oberfläche der Darmschleimhaut (durch Darmzotten) erleichtert dies.<br><br>Zwei wichtige Verdauungssäfte helfen: Bauchspeichel (Bauchspeicheldrüse/Pancreas) und Galle (Leber/Hepar), die in der Gallenblase (Vesica biliaris) zwischengespeichert wird."
+                        q: "Dünndarm (Duodenum) - Funktion [cite: 110]",
+                        a: "Aufgabe: Nahrungsbestandteile weiter zerkleinern. [cite: 111]<br><br>Zerlegte Stoffe werden über die Darmwand zurück in den Blutkreislauf oder das Lymphsystem aufgenommen = Resorption. [cite: 112]<br><br><h4>Zwölffingerdarm (Duodenum)</h4>Zentrale Rolle bei Verkleinerung. [cite: 114] Die grosse Oberfläche der Darmschleimhaut (durch Darmzotten) erleichtert dies. [cite: 115]<br><br>Zwei wichtige Verdauungssäfte helfen: Bauchspeichel (Bauchspeicheldrüse/Pancreas) und Galle (Leber/Hepar), die in der Gallenblase (Vesica biliaris) zwischengespeichert wird. [cite: 116]"
                     },
                     {
-                        q: "Dünndarm - Jejunum & Ileum",
-                        a: "<h4>Leerdarm (Jejunum)</h4>Im Jejunum und Ileum kann sich die Darmwand wellenförmig zusammenziehen (Peristaltik). Die Funktion ist, dass der Speisebrei mit Enzymen gut vermischt wird. Gespaltene Nährstoffe werden über Darmwand aufgenommen (Resorption) und verstoffwechselt.<br><br><h4>Krummdarm (Ileum)</h4>Typisch sind Ansammlungen von Lymphfollikeln (Peyer-Plaques). Gehören zum Lymphsystem, spielen wichtige Rolle bei Infektionsabwehr im Darm und Weiterverbreitung immunologischer Informationen."
+                        q: "Dünndarm - Jejunum & Ileum [cite: 117, 120]",
+                        a: "<h4>Leerdarm (Jejunum)</h4>Im Jejunum und Ileum kann sich die Darmwand wellenförmig zusammenziehen (Peristaltik). [cite: 117] Die Funktion ist, dass der Speisebrei mit Enzymen gut vermischt wird. [cite: 118] Gespaltene Nährstoffe werden über Darmwand aufgenommen (Resorption) und verstoffwechselt. [cite: 119]<br><br><h4>Krummdarm (Ileum)</h4>Typisch sind Ansammlungen von Lymphfollikeln (Peyer-Plaques). [cite: 120] Gehören zum Lymphsystem, spielen wichtige Rolle bei Infektionsabwehr im Darm und Weiterverbreitung immunologischer Informationen. [cite: 121]"
                     },
                     {
-                        q: "Dickdarm (Colon)",
-                        a: "Hauptaufgaben sind die Resorption von Wasser und die damit einhergehende Eindickung der Fäzes (Stuhl) sowie die Sekretion von Schleim.<br><br>Gliedert sich in:<br><ul><li>den Blinddarm (Caecum) mit Wurmfortsatz (Appendix vermiformis)</li><li>den Grimmdarm (Colon)</li><li>den Mastdarm (Rectum)</li><li>den Analkanal (Canalis analis)</li></ul>"
+                        q: "Dickdarm (Colon) [cite: 122]",
+                        a: "Hauptaufgaben sind die Resorption von Wasser und die damit einhergehende Eindickung der Fäzes (Stuhl) sowie die Sekretion von Schleim. [cite: 123]<br><br>Gliedert sich in: [cite: 124]<br><ul><li>den Blinddarm (Caecum) mit Wurmfortsatz (Appendix vermiformis) [cite: 125]</li><li>den Grimmdarm (Colon) [cite: 126]</li><li>den Mastdarm (Rectum) [cite: 127]</li><li>den Analkanal (Canalis analis) [cite: 128]</li></ul>"
                     },
                     {
-                        q: "Atmung (Gasaustausch)",
-                        a: "12 bis 15 Mal/Minute, Vorgang findet in der Regel unbewusst statt, lebenswichtig.<br><br>Austausch der Atemgase Sauerstoff (O2) und Kohlendioxid (CO2).<br><ul><li><b>Äussere Atmung (Lungenatmung):</b> In der Lunge wird eingeatmeter O2 im Austausch gegen CO2 ins Blut aufgenommen und zu Körperzellen transportiert.</li><li><b>Innere Atmung (Zellatmung):</b> Dort wird O2 aufgenommen/verbraucht und CO2 als Abfallprodukt ins Blut abgegeben.</li></ul>"
+                        q: "Atmung (Gasaustausch) [cite: 164]",
+                        a: "12 bis 15 Mal/Minute, Vorgang findet in der Regel unbewusst statt, lebenswichtig. [cite: 165, 166]<br><br>Austausch der Atemgase Sauerstoff (O2) und Kohlendioxid (CO2). [cite: 167]<br><ul><li><b>Äussere Atmung (Lungenatmung):</b> In der Lunge wird eingeatmeter O2 im Austausch gegen CO2 ins Blut aufgenommen und zu Körperzellen transportiert. [cite: 167]</li><li><b>Innere Atmung (Zellatmung):</b> Dort wird O2 aufgenommen/verbraucht und CO2 als Abfallprodukt ins Blut abgegeben. [cite: 168]</li></ul>"
                     },
                     {
-                        q: "Atmung - Atemwege & Aufgaben",
-                        a: "<b>Weg:</b> Nase/Mund -> Luftröhre (Trachea) -> die beiden Hauptbronchien -> die beiden Lungen (Pulmones). Hauptbronchien verzweigen baumartig in Bronchialbaum. Die kleinsten Verzweigungen (Bronchiolen) münden schliesslich in Lungenbläschen (Alveolen), die das Ende traubenförmig umgeben. Dort findet der Gasaustausch statt.<br><br><b>Aufgaben Atmungssystem:</b> Atmung (Gasaustausch) und dadurch Regulation des Säure-Base-Haushaltes, immunologische und endokrine Funktionen."
+                        q: "Atmung - Atemwege & Aufgaben [cite: 169, 173]",
+                        a: "<b>Weg:</b> Nase/Mund -> Luftröhre (Trachea) -> die beiden Hauptbronchien -> die beiden Lungen (Pulmones). [cite: 169] Hauptbronchien verzweigen baumartig in Bronchialbaum. [cite: 170] Die kleinsten Verzweigungen (Bronchiolen) münden schliesslich in Lungenbläschen (Alveolen), die das Ende traubenförmig umgeben. [cite: 171] Dort findet der Gasaustausch statt. [cite: 172]<br><br><b>Aufgaben Atmungssystem:</b> Atmung (Gasaustausch) und dadurch Regulation des Säure-Base-Haushaltes, immunologische und endokrine Funktionen. [cite: 173]"
                     }
                 ]
             },
@@ -514,20 +512,20 @@
                 color: "var(--blob-olive)",
                 cards: [
                     {
-                        q: "Leber (Hepar) - Stoffwechsel",
-                        a: "Die grösste Drüse und das wichtigste Stoffwechselorgan des Körpers.<br><br>Übernimmt wichtige Funktionen innerhalb des Kohlenhydrat-, Protein- und Fettstoffwechsels: Kohlenhydrate werden in Form von Glykogen gespeichert und bei Bedarf freigesetzt, Proteine/Fette unterliegen einem ständigen Um- und Abbau.<br><br>Dient als endokrines Kontrollorgan und fungiert als exokrine Drüse."
+                        q: "Leber (Hepar) - Stoffwechsel [cite: 129]",
+                        a: "Die grösste Drüse und das wichtigste Stoffwechselorgan des Körpers. [cite: 130]<br><br>Übernimmt wichtige Funktionen innerhalb des Kohlenhydrat-, Protein- und Fettstoffwechsels: Kohlenhydrate werden in Form von Glykogen gespeichert und bei Bedarf freigesetzt, Proteine/Fette unterliegen einem ständigen Um- und Abbau. [cite: 131]<br><br>Dient als endokrines Kontrollorgan und fungiert als exokrine Drüse. [cite: 132]"
                     },
                     {
-                        q: "Leber (Hepar) - Ausscheidung & Immunsystem",
-                        a: "Neben der Niere das wichtigste Organ für die Ausscheidung von Cholesterin, Abbauprodukten des Stoffwechsels und Gift- und Fremdstoffen (durch die Produktion der Galle).<br><br>Speichert Vitamine, Mineralstoffe und Spurenelemente.<br><br>Beteiligt an der Immunabwehr (zelluläre Immunabwehr über Kupffer-Zellen, Regulation von systemisch-entzündlichen Reaktionen)."
+                        q: "Leber (Hepar) - Ausscheidung & Immunsystem [cite: 132, 133]",
+                        a: "Neben der Niere das wichtigste Organ für die Ausscheidung von Cholesterin, Abbauprodukten des Stoffwechsels und Gift- und Fremdstoffen (durch die Produktion der Galle). [cite: 132]<br><br>Speichert Vitamine, Mineralstoffe und Spurenelemente. [cite: 133]<br><br>Beteiligt an der Immunabwehr (zelluläre Immunabwehr über Kupffer-Zellen, Regulation von systemisch-entzündlichen Reaktionen). [cite: 133]"
                     },
                     {
-                        q: "Nieren (Renes)",
-                        a: "Paariges Organ. Primäre Funktion ist die Harnbildung und die damit verbundene Ausscheidung u.a. der harnpflichtigen Substanzen.<br><br>Neben hauptsächlicher Funktion als Harnorgan spielt die Niere (Ren) eine Rolle bei der Synthese verschiedener Hormone und der Kontrolle des Elektrolyt- und Säure-Basen-Haushalts."
+                        q: "Nieren (Renes) [cite: 134]",
+                        a: "Paariges Organ. Primäre Funktion ist die Harnbildung und die damit verbundene Ausscheidung u.a. der harnpflichtigen Substanzen. [cite: 135]<br><br>Neben hauptsächlicher Funktion als Harnorgan spielt die Niere (Ren) eine Rolle bei der Synthese verschiedener Hormone und der Kontrolle des Elektrolyt- und Säure-Basen-Haushalts. [cite: 136]"
                     },
                     {
-                        q: "Schilddrüse (Glandula thyroidea)",
-                        a: "Endokrine Drüse. In Thyreozyten wird mit Hilfe von Iod Thyroxin (T4) und Triiodthyronin (T3) gebildet und bei Bedarf sezerniert.<br><br>Gesteuert durch hypothalamisch-hypophysären-Regelkreis.<br><br>Wichtig für:<br>1. Wachstum und Entwicklung im Kindesalter (v.a. Gehirn).<br>2. Beschleunigung von Stoffwechselvorgängen (Glykolyse, Lipolyse) mit erhöhtem Sauerstoffverbrauch & vermehrter Wärmeproduktion.<br>3. C-Zellen bilden Calcitonin (beteiligt an der Regulation des Blutkalziumspiegels)."
+                        q: "Schilddrüse (Glandula thyroidea) [cite: 137]",
+                        a: "Endokrine Drüse. In Thyreozyten wird mit Hilfe von Iod Thyroxin (T4) und Triiodthyronin (T3) gebildet und bei Bedarf sezerniert. [cite: 138]<br><br>Gesteuert durch hypothalamisch-hypophysären-Regelkreis. [cite: 139]<br><br>Wichtig für:<br>1. Wachstum und Entwicklung im Kindesalter (v.a. Gehirn). [cite: 140]<br>2. Beschleunigung von Stoffwechselvorgängen (Glykolyse, Lipolyse) mit erhöhtem Sauerstoffverbrauch & vermehrter Wärmeproduktion. [cite: 141]<br>3. C-Zellen bilden Calcitonin (beteiligt an der Regulation des Blutkalziumspiegels). [cite: 142]"
                     }
                 ]
             },
@@ -535,20 +533,20 @@
                 color: "var(--blob-navy)",
                 cards: [
                     {
-                        q: "Aufbau eines Knochens (Os)",
-                        a: "Röhrenknochen sind aus zwei Enden (Epiphysen) und einem Schaft (Diaphyse) aufgebaut.<br><br>Beispiele: Oberarmknochen (Humerus), Elle (Ulna), Speiche (Radius), Oberschenkelknochen (Femur), Fingerknochen (Digiti manus).<br><br>Strukturen: Spongiosa, Periost, Kompakta, Markhöhle, Knochenmark.<br><br><a href='https://studyflix.de/biologie-schueler/knochen-3279' target='_blank'>Knochen-Aufbau Bild</a>"
+                        q: "Aufbau eines Knochens (Os) [cite: 143]",
+                        a: "Röhrenknochen sind aus zwei Enden (Epiphysen) und einem Schaft (Diaphyse) aufgebaut. [cite: 144]<br><br>Beispiele: Oberarmknochen (Humerus), Elle (Ulna), Speiche (Radius), Oberschenkelknochen (Femur), Fingerknochen (Digiti manus). [cite: 145]<br><br>Strukturen: Spongiosa, Periost, Kompakta, Markhöhle, Knochenmark. [cite: 150, 151, 152, 153, 154]<br><br><a href='https://studyflix.de/biologie-schueler/knochen-3279' target='_blank'>Knochen-Aufbau Bild [cite: 155]</a>"
                     },
                     {
-                        q: "Gelenksarten",
-                        a: "Die 'Basis' eines Gelenks bilden zwei Knochen (Gelenkkopf und Gelenkpfanne), die sich gegenüberstehen.<br><br>Beim Menschen unterscheidet man hauptsächlich fünf Gelenktypen oder Gelenkformen:<br>1. das Kugelgelenk<br>2. das Eigelenk<br>3. das Sattelgelenk<br>4. das Scharniergelenk<br>5. das Drehgelenk"
+                        q: "Gelenksarten [cite: 156]",
+                        a: "Die 'Basis' eines Gelenks bilden zwei Knochen (Gelenkkopf und Gelenkpfanne), die sich gegenüberstehen. [cite: 157]<br><br>Beim Menschen unterscheidet man hauptsächlich fünf Gelenktypen oder Gelenkformen: [cite: 158]<br>1. das Kugelgelenk [cite: 159]<br>2. das Eigelenk [cite: 160]<br>3. das Sattelgelenk [cite: 161]<br>4. das Scharniergelenk [cite: 162]<br>5. das Drehgelenk [cite: 163]"
                     },
                     {
-                        q: "Vitalzeichen: Puls & Blutdruck",
-                        a: "<h4>Puls</h4><ul><li>Kleinkind: 80-110 Schläge/Minute</li><li>Schulkind: 70-90 Schläge/Minute</li><li>Jugendliche/Erwachsene: 60-80 Schläge/Minute</li></ul><br><h4>Blutdruck</h4><ul><li>Schulkind: 100/60 mmHg</li><li>Erwachsene: 120/80 mmHg</li><li>ältere Menschen: 140/90 mmHg</li></ul>"
+                        q: "Vitalzeichen: Puls & Blutdruck [cite: 219, 220, 221]",
+                        a: "<h4>Puls</h4><ul><li>Kleinkind: 80-110 Schläge/Minute [cite: 222]</li><li>Schulkind: 70-90 Schläge/Minute [cite: 223]</li><li>Jugendliche/Erwachsene: 60-80 Schläge/Minute [cite: 224]</li></ul><br><h4>Blutdruck</h4><ul><li>Schulkind: 100/60 mmHg [cite: 225]</li><li>Erwachsene: 120/80 mmHg [cite: 226]</li><li>ältere Menschen: 140/90 mmHg [cite: 227]</li></ul>"
                     },
                     {
-                        q: "Vitalzeichen: Atmung & Temperatur",
-                        a: "<h4>Atmung</h4>12-20 Atemzüge/Minute (Kinder: bis zu 30 Atemzüge/Minute)<br><br><h4>Körpertemperatur</h4><ul><li>Untertemperatur: < 36.3°C</li><li>Normaltemperatur: 36.3 - 37.4°C</li><li>leicht erhöhte Temperatur bis leichtes Fieber: 37.5 - 38.5°C</li></ul>"
+                        q: "Vitalzeichen: Atmung & Temperatur [cite: 228, 229]",
+                        a: "<h4>Atmung</h4>12-20 Atemzüge/Minute (Kinder: bis zu 30 Atemzüge/Minute) [cite: 230, 231]<br><br><h4>Körpertemperatur</h4><ul><li>Untertemperatur: < 36.3°C [cite: 234]</li><li>Normaltemperatur: 36.3 - 37.4°C [cite: 235]</li><li>leicht erhöhte Temperatur bis leichtes Fieber: 37.5 - 38.5°C [cite: 236]</li></ul>"
                     }
                 ]
             },
@@ -556,24 +554,24 @@
                 color: "var(--blob-pink)",
                 cards: [
                     {
-                        q: "Weiblicher Hormonzyklus - Steuerung",
-                        a: "Dauert 24-38 Tage (nur 10-15% exakt 28 Tage, mind. 20% unregelmässig). Beginnt bei Menarche (Pubertät), endet mit Menopause (Zeitraum 1 Jahr nach letztem Zyklus im Klimakterium).<br><br><b>Steuerung:</b> Hypothalamus sendet Gonadotropin-Releasing-Hormon (GnRH), veranlasst Hypophyse luteinisierende (LH) und follikelstimulierende Hormone (FSH) zu bilden. Fördert Eisprung (Ovulation) und regt Eierstöcke (Ovarium) an Östrogen & Progesteron zu bilden. Diese stimulieren Uterus & Mammae (Brust), sich auf mögliche Befruchtung vorzubereiten.<br><br><a href='https://bionorica.de/de/gesundheit/frauengesundheit/der-weibliche-zyklus/auf-einen-blick-der-weibliche-zyklus.html' target='_blank'>Zyklus Grafik</a>"
+                        q: "Weiblicher Hormonzyklus - Steuerung [cite: 175]",
+                        a: "Dauert 24-38 Tage (nur 10-15% exakt 28 Tage, mind. 20% unregelmässig). [cite: 180, 181, 182] Beginnt bei Menarche (Pubertät), endet mit Menopause (Zeitraum 1 Jahr nach letztem Zyklus im Klimakterium). [cite: 178]<br><br><b>Steuerung:</b> Hypothalamus sendet Gonadotropin-Releasing-Hormon (GnRH), veranlasst Hypophyse luteinisierende (LH) und follikelstimulierende Hormone (FSH) zu bilden. [cite: 184] Fördert Eisprung (Ovulation) und regt Eierstöcke (Ovarium) an Östrogen & Progesteron zu bilden. [cite: 185] Diese stimulieren Uterus & Mammae (Brust), sich auf mögliche Befruchtung vorzubereiten. [cite: 186]<br><br><a href='https://bionorica.de/de/gesundheit/frauengesundheit/der-weibliche-zyklus/auf-einen-blick-der-weibliche-zyklus.html' target='_blank'>Zyklus Grafik [cite: 215]</a>"
                     },
                     {
-                        q: "Weiblicher Hormonzyklus - Phasen",
-                        a: "<ul><li><b>1. Zyklushälfte (1.-12. Zyklustag):</b> Desquamations- und Proliferationsphase (Follikel-/Eireifungsphase). Menstruation: Gebärmutterschleimhaut blutet ab (4-8 Tage).</li><li><b>Eisprung (13.-16. Zyklustag):</b> Fruchtbare Phase, eine der reifen Eibläschen platzt, gibt Eizelle frei, wird vom Eileiter aufgenommen (Ovulation).</li><li><b>2. Zyklushälfte (17.-27. Zyklustag):</b> Sekretions- oder Lutealphase (Gelbkörperphase). Eibläschen fällt zusammen -> wird zum Gelbkörper. Gebärmutterschleimhaut wird aufgebaut. Findet keine Befruchtung statt, bildet sich Gelbkörper zurück und Zyklus beginnt neu.</li></ul>"
+                        q: "Weiblicher Hormonzyklus - Phasen [cite: 187]",
+                        a: "<ul><li><b>1. Zyklushälfte (1.-12. Zyklustag):</b> Desquamations- und Proliferationsphase (Follikel-/Eireifungsphase). [cite: 187] Menstruation: Gebärmutterschleimhaut blutet ab (4-8 Tage). [cite: 183]</li><li><b>Eisprung (13.-16. Zyklustag):</b> Fruchtbare Phase, eine der reifen Eibläschen platzt, gibt Eizelle frei, wird vom Eileiter aufgenommen (Ovulation). [cite: 188]</li><li><b>2. Zyklushälfte (17.-27. Zyklustag):</b> Sekretions- oder Lutealphase (Gelbkörperphase). [cite: 189] Eibläschen fällt zusammen -> wird zum Gelbkörper. [cite: 190] Gebärmutterschleimhaut wird aufgebaut. [cite: 191] Findet keine Befruchtung statt, bildet sich Gelbkörper zurück und Zyklus beginnt neu. [cite: 191]</li></ul>"
                     },
                     {
-                        q: "Veränderung der Brust (Mammae)",
-                        a: "Progesteron beeinflusst die Entwicklung der Milchdrüsen in der Brust.<br><br>Östrogene: Höhere Werte im Blut (vor Eisprung oder während Schwangerschaft) lassen Mammae grösser werden (bereiten sie so auf Milchbildung nach Entbindung vor).<br><br>Diese Vergrösserung erfolgt durch Wassereinlagerungen, weshalb die Mammae gespannt und schmerzempfindlich ist."
+                        q: "Veränderung der Brust (Mammae) [cite: 216]",
+                        a: "Progesteron beeinflusst die Entwicklung der Milchdrüsen in der Brust. [cite: 217]<br><br>Östrogene: Höhere Werte im Blut (vor Eisprung oder während Schwangerschaft) lassen Mammae grösser werden (bereiten sie so auf Milchbildung nach Entbindung vor). [cite: 217]<br><br>Diese Vergrösserung erfolgt durch Wassereinlagerungen, weshalb die Mammae gespannt und schmerzempfindlich ist. [cite: 218]"
                     },
                     {
-                        q: "Bakterien vs. Viren",
-                        a: "<h4>Viren</h4>Relativ einfach aufgebaut (ein oder mehrere Moleküle, manchmal Eiweisshülle). Enthalten Erbgut (DNA/RNA) zur Vermehrung. Weder eigene Zelle noch eigener Stoffwechsel. Keine Energiegewinnung, keine Proteinsynthese (streng genommen keine Lebewesen). Formen: Kaulquappen mit langem Schwanz, rund, stäbchenförmig.<br><br><h4>Bakterien</h4>Mikroskopisch kleine (0,1-700 Mikrometer, Vielfaches grösser als Viren). Einzellig, versorgen sich selbst, produzieren was sie zum Leben brauchen. Eigenes Erbgut und eigener Stoffwechsel. Formen: Kugel-Gebilde, verzweigte Fäden, Stäbchen, zylinderförmig. Nur wenige rufen Krankheiten hervor (Krankheitserreger/Pathogene)."
+                        q: "Bakterien vs. Viren [cite: 237]",
+                        a: "<h4>Viren</h4>Relativ einfach aufgebaut (ein oder mehrere Moleküle, manchmal Eiweisshülle). [cite: 238] Enthalten Erbgut (DNA/RNA) zur Vermehrung. [cite: 239] Weder eigene Zelle noch eigener Stoffwechsel. [cite: 240] Keine Energiegewinnung, keine Proteinsynthese (streng genommen keine Lebewesen). [cite: 241] Formen: Kaulquappen mit langem Schwanz, rund, stäbchenförmig. [cite: 242]<br><br><h4>Bakterien</h4>Mikroskopisch kleine (0,1-700 Mikrometer, Vielfaches grösser als Viren). [cite: 243, 244] Einzellig, versorgen sich selbst, produzieren was sie zum Leben brauchen. [cite: 245] Eigenes Erbgut und eigener Stoffwechsel. [cite: 246] Formen: Kugel-Gebilde, verzweigte Fäden, Stäbchen, zylinderförmig. [cite: 244] Nur wenige rufen Krankheiten hervor (Krankheitserreger/Pathogene). [cite: 247]"
                     },
                     {
-                        q: "Händehygiene (Vorgang)",
-                        a: "Wichtigste Massnahme zur Verhütung und Bekämpfung von im KH erworbenen Infektionen. Händewaschen auf Minimum beschränken (nur Reinigung, häufiger Hautirritationen).<br><br><b>Fünf Prinzipien:</b> 1. Vor/nach Patientenkontakt 2. Nicht sprechen 3. Alle Flächen abdecken 4. Jede Fläche 5 mal 5. Mind 30 sec. Einwirkzeit (oder bis verdampft).<br><br><b>Ablauf:</b> Ausreichend Mittel aus Pump/Armhebelspender (mit Ellenbogen, Hohlhand vollständig gefüllt). Verreiben: beide Hände. Problemstellen: Daumen, Fingerkuppen, Nagelfalz. Bei Kontamination (z.B. Betten) auch Unterarme einreiben.<br><a href='https://de.wikipedia.org/wiki/H%C3%A4ndedesinfektion' target='_blank'>Hygienische Händedesinfektion</a>"
+                        q: "Händehygiene (Vorgang) [cite: 248]",
+                        a: "Wichtigste Massnahme zur Verhütung und Bekämpfung von im KH erworbenen Infektionen. [cite: 263] Händewaschen auf Minimum beschränken (nur Reinigung, häufiger Hautirritationen). [cite: 264, 265]<br><br><b>Fünf Prinzipien:</b> 1. Vor/nach Patientenkontakt [cite: 250] 2. Nicht sprechen [cite: 251] 3. Alle Flächen abdecken [cite: 252] 4. Jede Fläche 5 mal [cite: 253] 5. Mind 30 sec. Einwirkzeit (oder bis verdampft). [cite: 254]<br><br><b>Ablauf:</b> Ausreichend Mittel aus Pump/Armhebelspender (mit Ellenbogen, Hohlhand vollständig gefüllt). [cite: 255, 256] Verreiben: beide Hände. [cite: 257] Problemstellen: Daumen, Fingerkuppen, Nagelfalz. [cite: 257] Bei Kontamination (z.B. Betten) auch Unterarme einreiben. [cite: 258]<br><a href='https://de.wikipedia.org/wiki/H%C3%A4ndedesinfektion' target='_blank'>Hygienische Händedesinfektion [cite: 262]</a>"
                     }
                 ]
             },
@@ -581,24 +579,24 @@
                 color: "var(--blob-olive)",
                 cards: [
                     {
-                        q: "Arthrose (Definition)",
-                        a: "Die Arthrose ist eine chronische Arthropathie, die durch Schädigung und potenziellen Verlust des Gelenkknorpels zusammen mit weiteren Veränderungen, wie z.B. Knochenhypertrophie (Bildung von Osteophyten), gekennzeichnet ist.<br><br>Wird in eine primäre (idiopathische) und eine sekundäre, auf definierte Ursachen bezogene Form eingeteilt.<br><br><a href='https://www.rheumaliga.ch/rheuma-von-a-z/arthrose' target='_blank'>Arthrose Bild</a>"
+                        q: "Arthrose (Definition) [cite: 267]",
+                        a: "Die Arthrose ist eine chronische Arthropathie, die durch Schädigung und potenziellen Verlust des Gelenkknorpels zusammen mit weiteren Veränderungen, wie z.B. Knochenhypertrophie (Bildung von Osteophyten), gekennzeichnet ist. [cite: 268, 269]<br><br>Wird in eine primäre (idiopathische) und eine sekundäre, auf definierte Ursachen bezogene Form eingeteilt. [cite: 270]<br><br><a href='https://www.rheumaliga.ch/rheuma-von-a-z/arthrose' target='_blank'>Arthrose Bild [cite: 289]</a>"
                     },
                     {
-                        q: "Osteoporose & Fraktur (Definition)",
-                        a: "<h4>Osteoporose</h4>Progressive metabolische Knochenkrankheit mit erniedrigter Knochenmineraldichte (Knochenmasse pro Volumeneinheit) und Zerfall der Knochenstruktur. Anfälligkeit des Skeletts führt zu Frakturen nach geringen oder stummen Traumata (Fragilitätsfrakturen). v.a. an thorakaler und lumbaler Wirbelsäule, Handgelenk, Hüfte. <a href='https://www.ksw.ch/gesundheitsthemen/osteoporose/' target='_blank'>Osteoporose Bild</a><br><br><h4>Fraktur</h4>Ein Bruch in einem Knochen, entsteht meist durch eine einzige, signifikante Kraft, die auf normalen Knochen ausgeübt wird."
+                        q: "Osteoporose & Fraktur (Definition) [cite: 290, 295]",
+                        a: "<h4>Osteoporose</h4>Progressive metabolische Knochenkrankheit mit erniedrigter Knochenmineraldichte (Knochenmasse pro Volumeneinheit) und Zerfall der Knochenstruktur. [cite: 291] Anfälligkeit des Skeletts führt zu Frakturen nach geringen oder stummen Traumata (Fragilitätsfrakturen). v.a. an thorakaler und lumbaler Wirbelsäule, Handgelenk, Hüfte. [cite: 292, 293] <a href='https://www.ksw.ch/gesundheitsthemen/osteoporose/' target='_blank'>Osteoporose Bild [cite: 294]</a><br><br><h4>Fraktur</h4>Ein Bruch in einem Knochen, entsteht meist durch eine einzige, signifikante Kraft, die auf normalen Knochen ausgeübt wird. [cite: 296]"
                     },
                     {
-                        q: "Röntgenbild: Arthrose, Osteo, Fraktur",
-                        a: "<h4>Arthrose (z.B. Gonarthrose im Knie)</h4>Abnahme des Gelenkspaltes (z.B. medial/innere Seite deutlich reduziert, lateral/äussere nicht). Durch Verlust Menisken reiben Knochen aufeinander = zeigt sich als sklerotischer Saum (Verschattung = helle Linie).<br><h4>Osteoporose</h4>Abnahme der Knochendichte als Aufhellung (dunkle, fleckige Bereiche) erkennbar. Ausdünnung Trabekel und sehr dünne Kortikalis der Mittelhandknochen und Fingerglieder.<br><h4>Fraktur</h4>Kontinuitätsunterbruch als Aufhellung (dunkle Linie) erkennbar (z.B. im Unterarm eines Kindes, da Knochen noch nicht verwachsen)."
+                        q: "Röntgenbild: Arthrose, Osteo, Fraktur [cite: 297]",
+                        a: "<h4>Arthrose (z.B. Gonarthrose im Knie)</h4>Abnahme des Gelenkspaltes (z.B. medial/innere Seite deutlich reduziert, lateral/äussere nicht). [cite: 298, 299] Durch Verlust Menisken reiben Knochen aufeinander = zeigt sich als sklerotischer Saum (Verschattung = helle Linie). [cite: 300]<br><h4>Osteoporose</h4>Abnahme der Knochendichte als Aufhellung (dunkle, fleckige Bereiche) erkennbar. [cite: 301] Ausdünnung Trabekel und sehr dünne Kortikalis der Mittelhandknochen und Fingerglieder. [cite: 302]<br><h4>Fraktur</h4>Kontinuitätsunterbruch als Aufhellung (dunkle Linie) erkennbar (z.B. im Unterarm eines Kindes, da Knochen noch nicht verwachsen). [cite: 303]"
                     },
                     {
-                        q: "Dyspnoe & Pneumonie",
-                        a: "<h4>Dyspnoe</h4>Bedeutet subjektive Atemnot. Die Atmung wird als unangenehm oder anstrengend empfunden (wird von Patienten in Abhängigkeit von Ursache unterschiedlich erfahren und beschrieben).<br><br><h4>Pneumonie</h4>Akute Entzündung des Lungenparenchyms (Alveolarraum und/oder interstitielles Lungengewebe), in erster Linie infektiös bedingt (durch Bakterien, Viren, Pilze, Protozoen oder Parasiten). Ambulant, nosokomial oder bei Immunsupprimierten. Erstdiagnose üblicherweise anhand Röntgen-Thorax-Bild und klinischen Befunden."
+                        q: "Dyspnoe & Pneumonie [cite: 304, 307]",
+                        a: "<h4>Dyspnoe</h4>Bedeutet subjektive Atemnot. [cite: 305] Die Atmung wird als unangenehm oder anstrengend empfunden (wird von Patienten in Abhängigkeit von Ursache unterschiedlich erfahren und beschrieben). [cite: 305, 306]<br><br><h4>Pneumonie</h4>Akute Entzündung des Lungenparenchyms (Alveolarraum und/oder interstitielles Lungengewebe), in erster Linie infektiös bedingt (durch Bakterien, Viren, Pilze, Protozoen oder Parasiten). [cite: 308, 309] Ambulant, nosokomial oder bei Immunsupprimierten. [cite: 309] Erstdiagnose üblicherweise anhand Röntgen-Thorax-Bild und klinischen Befunden. [cite: 310]"
                     },
                     {
-                        q: "Schmerz (Akut vs. Chronisch)",
-                        a: "Ein unangenehmes Sinnes- oder Gefühlserlebnis, das mit tatsächlicher oder potenzieller Gewebeschädigung einhergeht oder ähnelt (sensorische und emotionale Komponenten).<br><br><b>Akut:</b> Antwort auf Gewebeschädigung, entsteht durch Aktivierung peripherer Schmerzrezeptoren & deren spezifischen sensorischen ADelta- und C-Nervenfasern (Nozizeptoren).<br><br><b>Chronisch:</b> Mit andauernder Gewebeschädigung verbunden (persistierende Aktivierung dieser Fasern) oder durch anhaltende Schädigung/Funktionsstörungen des peripheren/zentralen Nervensystems (verursacht neuropathischen Schmerz). <i>Schwere der Gewebeverletzung lässt nicht immer auf Schwere der Schmerzen schliessen.</i>"
+                        q: "Schmerz (Akut vs. Chronisch) [cite: 311, 313]",
+                        a: "Ein unangenehmes Sinnes- oder Gefühlserlebnis, das mit tatsächlicher oder potenzieller Gewebeschädigung einhergeht oder ähnelt (sensorische und emotionale Komponenten). [cite: 312, 314]<br><br><b>Akut:</b> Antwort auf Gewebeschädigung, entsteht durch Aktivierung peripherer Schmerzrezeptoren & deren spezifischen sensorischen ADelta- und C-Nervenfasern (Nozizeptoren). [cite: 315]<br><br><b>Chronisch:</b> Mit andauernder Gewebeschädigung verbunden (persistierende Aktivierung dieser Fasern) oder durch anhaltende Schädigung/Funktionsstörungen des peripheren/zentralen Nervensystems (verursacht neuropathischen Schmerz). [cite: 316, 318] <i>Schwere der Gewebeverletzung lässt nicht immer auf Schwere der Schmerzen schliessen. [cite: 317]</i>"
                     }
                 ]
             },
@@ -606,16 +604,16 @@
                 color: "var(--blob-navy)",
                 cards: [
                     {
-                        q: "Karzinom & Benigner Tumor",
-                        a: "<h4>Karzinom</h4>Maligne Erkrankung, die sich aus Epithelzellen (Schleimhautzellen) entwickelt. Macht rund 80% aller maligner solider Tumoren aus. Können sich auf andere Teile des Körpers ausbreiten oder auf den Ursprungsort beschränkt sein.<br><br><h4>Benigner Tumor (gutartig)</h4>Erfüllt weder Kriterien für eine Hyperplasie (Vergrösserung durch Vermehrung von Zellen) noch für einen bösartigen Tumor. Räumlich begrenzt, grenzen sich durch Kapseln vom umgebenden Gewebe ab. Bedeutet: sie metastasieren nicht (können keine anderen Organe befallen)."
+                        q: "Karzinom & Benigner Tumor [cite: 319, 322]",
+                        a: "<h4>Karzinom</h4>Maligne Erkrankung, die sich aus Epithelzellen (Schleimhautzellen) entwickelt. [cite: 320] Macht rund 80% aller maligner solider Tumoren aus. [cite: 321] Können sich auf andere Teile des Körpers ausbreiten oder auf den Ursprungsort beschränkt sein. [cite: 321]<br><br><h4>Benigner Tumor (gutartig)</h4>Erfüllt weder Kriterien für eine Hyperplasie (Vergrösserung durch Vermehrung von Zellen) noch für einen bösartigen Tumor. [cite: 323] Räumlich begrenzt, grenzen sich durch Kapseln vom umgebenden Gewebe ab. [cite: 324] Bedeutet: sie metastasieren nicht (können keine anderen Organe befallen). [cite: 325]"
                     },
                     {
-                        q: "Maligner Tumor & Metastasen",
-                        a: "<h4>Maligner Tumor</h4>Wachsen in der Regel unkontrolliert (unregulierte Zellenproliferation) in anderes Gewebe hinein und können dieses/Organe schädigen. Eigenschaften: Fehlende Differenzierung der Zellen, lokale Invasion von angrenzendem Gewebe, Metastasen, die durch Blutkreislauf/Lymphsystem (oft) an entfernte Stellen ausgebreitet werden.<br><br><h4>Metastasen</h4>Zellabsiedlungen eines malignen Tumors in andere Organe oder das gleiche. Absiedelung = Metastasierung/Streuung. Immer mit schlechterer Prognose verbunden. Lymphknotenmetastasen (Tumorregion) vs. Fernmetastasen (häufig Leber, Lunge, Knochen, Gehirn). Formen: lymphogen, hämatogen, liquorgen, intrakavitär. Besitzen ähnliche, nicht zwingend identische Zelleigenschaften wie Primärtumor."
+                        q: "Maligner Tumor & Metastasen [cite: 326, 331]",
+                        a: "<h4>Maligner Tumor</h4>Wachsen in der Regel unkontrolliert (unregulierte Zellenproliferation) in anderes Gewebe hinein und können dieses/Organe schädigen. [cite: 326] Eigenschaften: Fehlende Differenzierung der Zellen [cite: 328], lokale Invasion von angrenzendem Gewebe [cite: 329], Metastasen, die durch Blutkreislauf/Lymphsystem (oft) an entfernte Stellen ausgebreitet werden. [cite: 330]<br><br><h4>Metastasen</h4>Zellabsiedlungen eines malignen Tumors in andere Organe oder das gleiche. [cite: 331, 332] Absiedelung = Metastasierung/Streuung. [cite: 333] Immer mit schlechterer Prognose verbunden. [cite: 334] Lymphknotenmetastasen (Tumorregion) vs. Fernmetastasen (häufig Leber, Lunge, Knochen, Gehirn). [cite: 336, 337] Formen: lymphogen, hämatogen, liquorgen, intrakavitär. [cite: 338] Besitzen ähnliche, nicht zwingend identische Zelleigenschaften wie Primärtumor. [cite: 335]"
                     },
                     {
-                        q: "Niereninsuffizienz & Labor",
-                        a: "<h4>Niereninsuffizienz</h4>Nierenfunktion derart gestört, dass Abbauprodukte des Stoffwechsels nicht hinreichend ausgeschieden werden. Akutes Nierenversagen (rascher Rückgang) oder chronische Niereninsuffizienz/Nierenerkrankung (allmählicher Rückgang). Niere kann Menge/Verteilung Körperwasser (Flüssigkeitsgleichgewicht), Konzentration Elektrolyte (Natrium, Kalium, Kalzium, Phosphat) und Säure im Blut nicht mehr steuern.<br><br><h4>Laborwert: Kreatinin</h4>Stoffwechselprodukt des Kreatins aus den Muskeln. Kreatinin-Clearance ist ein Mass für die ausgeschiedene Menge und schätzt die Filtrationsrate der Nierenglomeruli ab (glomeruläre Filtrationsrate, GFR).<br><br><h4>Radiologie</h4>Vor intravasaler Kontrastmittelgabe überprüft. Kontrastmittel (Röntgen/MRT) wird über Niere ausgeschieden; bei Insuffizienz gestört/verlangsamt = verweilt zu lange im Körper = Nebenwirkungen verursachen."
+                        q: "Niereninsuffizienz & Labor [cite: 339]",
+                        a: "<h4>Niereninsuffizienz</h4>Nierenfunktion derart gestört, dass Abbauprodukte des Stoffwechsels nicht hinreichend ausgeschieden werden. [cite: 340] Akutes Nierenversagen (rascher Rückgang) oder chronische Niereninsuffizienz/Nierenerkrankung (allmählicher Rückgang). [cite: 341, 342] Niere kann Menge/Verteilung Körperwasser (Flüssigkeitsgleichgewicht), Konzentration Elektrolyte (Natrium, Kalium, Kalzium, Phosphat) und Säure im Blut nicht mehr steuern. [cite: 343]<br><br><h4>Laborwert: Kreatinin</h4>Stoffwechselprodukt des Kreatins aus den Muskeln. [cite: 345] Kreatinin-Clearance ist ein Mass für die ausgeschiedene Menge und schätzt die Filtrationsrate der Nierenglomeruli ab (glomeruläre Filtrationsrate, GFR). [cite: 347, 348]<br><br><h4>Radiologie</h4>Vor intravasaler Kontrastmittelgabe überprüft. [cite: 350] Kontrastmittel (Röntgen/MRT) wird über Niere ausgeschieden; bei Insuffizienz gestört/verlangsamt = verweilt zu lange im Körper = Nebenwirkungen verursachen. [cite: 351]"
                     }
                 ]
             }
@@ -631,22 +629,21 @@
             setupSwipeLogic();
         }
 
-        // Return Wrong Cards from LocalStorage
         function getWrongCards(deckKey) {
-            const stored = localStorage.getItem('med_fails_v4_' + deckKey);
+            const stored = localStorage.getItem('med_fails_v5_' + deckKey);
             return stored ? JSON.parse(stored) : [];
         }
 
         function saveWrongCards(deckKey, cardsArray) {
-            localStorage.setItem('med_fails_v4_' + deckKey, JSON.stringify(cardsArray));
-            renderHomeScreen(); // Update counts immediately
+            localStorage.setItem('med_fails_v5_' + deckKey, JSON.stringify(cardsArray));
+            renderHomeScreen(); 
         }
 
-        // Render Decks on Home Screen
         function renderHomeScreen() {
             const list = document.getElementById('deck-list');
             list.innerHTML = "";
             
+            let idx = 0;
             for (let key in data) {
                 const totalCards = data[key].cards.length;
                 const wrongCount = getWrongCards(key).length;
@@ -654,7 +651,7 @@
 
                 const cardHTML = `
                     <div class="deck-card" onclick="startDeck('${key}', false)">
-                        ${getBlobSVG(color)}
+                        ${getBlobSVG(color, idx)}
                         <div class="deck-content">
                             <div class="deck-text-area">
                                 <h2 class="deck-title">${key}</h2>
@@ -675,6 +672,7 @@
                     </div>
                 `;
                 list.insertAdjacentHTML('beforeend', cardHTML);
+                idx++;
             }
         }
 
@@ -836,15 +834,21 @@
                 isDragging = false;
                 const card = document.getElementById('flashcard');
                 
-                if (currentX === 0) {
+                const diffX = currentX === 0 ? 0 : currentX - startX;
+                
+                // Kurzes Antippen = Karte umdrehen
+                if (Math.abs(diffX) < 10) {
                     flipCard();
+                    currentX = 0;
                     return;
                 }
 
-                if (!card.classList.contains('is-flipped')) return;
+                if (!card.classList.contains('is-flipped')) {
+                    currentX = 0;
+                    return;
+                }
 
                 card.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                const diffX = currentX - startX;
                 const timeDiff = new Date().getTime() - startTime;
                 
                 if (diffX > 80 || (diffX > 30 && timeDiff < 250)) {
@@ -857,6 +861,7 @@
                 currentX = 0; 
             });
             
+            // Mouse click support for Desktop
             container.addEventListener('mousedown', (e) => { startX = e.clientX; });
             container.addEventListener('mouseup', (e) => {
                 if (Math.abs(e.clientX - startX) < 10) { flipCard(); }

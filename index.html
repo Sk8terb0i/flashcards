@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medizin Flashcards - Komplett</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            color: #333;
+        }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 10px; }
+        .deck-selector { margin-bottom: 20px; }
+        select { padding: 10px; border-radius: 5px; border: 1px solid #bdc3c7; font-size: 1em; cursor: pointer; }
+        
+        .flashcard-container {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 550px;
+            height: 450px; /* Grösser, da viel mehr Infos! */
+            margin-bottom: 20px;
+        }
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 12px;
+        }
+        .flashcard.is-flipped { transform: rotateY(180deg); }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 25px;
+            box-sizing: border-box;
+            border-radius: 12px;
+            background-color: white;
+            overflow-y: auto; /* Erlaubt scrollen bei viel Text */
+        }
+        .card-front { 
+            justify-content: center; 
+            align-items: center; 
+            font-weight: bold; 
+            font-size: 1.3em; 
+            text-align: center; 
+            color: #2c3e50; 
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f8 100%);
+        }
+        .card-back { 
+            transform: rotateY(180deg); 
+            font-size: 0.95em; 
+            color: #34495e; 
+            align-items: flex-start; 
+            justify-content: flex-start; 
+            line-height: 1.5;
+        }
+        .card-back h4 { margin-top: 0; color: #2980b9; margin-bottom: 10px; }
+        .card-back img { max-width: 100%; border-radius: 5px; margin: 10px 0; border: 1px solid #ddd; }
+        
+        .controls { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center;}
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+        button:hover { background-color: #2980b9; }
+        .btn-edit { background-color: #9b59b6; }
+        .btn-edit:hover { background-color: #8e44ad; }
+        .btn-reset { background-color: #e74c3c; }
+        .btn-reset:hover { background-color: #c0392b; }
+        
+        .progress { margin-bottom: 10px; font-weight: bold; color: #7f8c8d; }
+        a { color: #e67e22; word-break: break-all; text-decoration: none; font-weight: bold;}
+        a:hover { text-decoration: underline; }
+        ul { padding-left: 20px; margin-top: 5px; margin-bottom: 10px;}
+        li { margin-bottom: 6px; }
+
+        .edit-form {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            max-width: 550px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+            margin-bottom: 30px;
+        }
+        .edit-form textarea, .edit-form select { width: 100%; margin-bottom: 15px; padding: 10px; box-sizing: border-box; font-family: inherit; border: 1px solid #ccc; border-radius: 5px;}
+    </style>
+</head>
+<body>
+
+    <h1>Medizin Flashcards</h1>
+    
+    <div class="deck-selector">
+        <label for="deck-select"><strong>Wähle ein Deck:</strong> </label>
+        <select id="deck-select" onchange="changeDeck()">
+            </select>
+    </div>
+
+    <div class="progress" id="progress">Karte 1 von X</div>
+
+    <div class="flashcard-container" onclick="flipCard()">
+        <div class="flashcard" id="flashcard">
+            <div class="card-face card-front" id="card-front">Lade...</div>
+            <div class="card-face card-back" id="card-back">Lade...</div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button onclick="prevCard()">◄ Zurück</button>
+        <button onclick="nextCard()">Weiter ►</button>
+        <button class="btn-edit" onclick="toggleEditForm()">Neu / Bearbeiten</button>
+        <button class="btn-reset" onclick="resetCards()">Alle Decks Reset</button>
+    </div>
+
+    <div class="edit-form" id="edit-form">
+        <h3>Karte hinzufügen oder bearbeiten</h3>
+        <label>Deck:</label>
+        <select id="edit-deck"></select>
+        <label>Frage:</label>
+        <textarea id="edit-q" rows="3"></textarea>
+        <label>Antwort (HTML erlaubt):</label>
+        <textarea id="edit-a" rows="8"></textarea>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button onclick="saveNewCard()" style="background-color: #2ecc71;">Als neue Karte anlegen</button>
+            <button onclick="updateCurrentCard()" style="background-color: #f39c12;">Aktuelle Karte überschreiben</button>
+        </div>
+    </div>
+
+    <script>
+        // DIE KOMPLETTEN DATEN - Jedes Detail wurde extrahiert
+        const defaultDecks = {
+            "1. Anatomie: Zelle (Zytologie)": [
+                {
+                    q: "Nennen und beschreiben Sie alle Anteile einer menschlichen Zelle inkl. Funktionen (Teil 1: Kern & Plasma).",
+                    a: "<h4>Zellkern (Nucleus) & Zytoplasma</h4><ul><li><b>Zellkern:</b> Zentrum der Zelle. Steuert wichtige Stoffwechselprozesse (z.B. Zellteilung), lagert die Erbinformation (DNA) in Form von Chromosomen.</li><li><b>Kernkörperchen (Nucleolus):</b> Kleine, kugelförmige Struktur im Kern. Besteht aus DNA, RNA, Proteinen und Enzymen. Wichtig für Synthese von Ribosomen (und somit Zellteilung).</li><li><b>Zellplasma (Zytoplasma):</b> Besteht aus dem flüssigen Zytosol (Wasser, Proteine, Lipide, RNA, Kohlenhydrate, Ionen, Enzyme) und dem festen Zytoskelett. Aufgaben: Steuerung Stoffwechselprozesse, Abbau schädlicher Substanzen.</li><li><b>Zellskelett (Mikrotubuli):</b> Stütz- und Bewegungsapparat, beteiligt an Zellteilung und Zellmotilität (Bewegung).</li></ul>"
+                },
+                {
+                    q: "Nennen und beschreiben Sie alle Anteile einer menschlichen Zelle inkl. Funktionen (Teil 2: Membran & Organellen).",
+                    a: "<h4>Membran & Energie</h4><ul><li><b>Zellmembran (Plasmamembran):</b> Trennt Zelle vom extrazellulären Raum, grenzt Organellen ab (Barriere). Lipiddoppelschicht mit eingebauten Lipiden/Proteinen. Ermöglicht Stofftransport und Zellkommunikation. (Ausnahme: Zellkern & Mitochondrien haben zwei Membranen).</li><li><b>Mitochondrien:</b> Kraftwerke der Zelle. Energieproduktion (Zellatmung, ATP-Synthese). Besitzen 2 Membranen, eigene DNA und Ribosomen.</li><li><b>Ribosomen:</b> Frei oder am rauen ER gebunden. Beteiligt an der Proteinbiosynthese (Synthetisieren Proteine nach Bauanleitung aus Zellkern).</li><li><b>Golgi-Apparat:</b> Zentrum des Stofftransports. Transport von Proteinen/Lipiden, führt Modifikationen aus dem ER fort.</li></ul>"
+                },
+                {
+                    q: "Nennen und beschreiben Sie alle Anteile einer menschlichen Zelle inkl. Funktionen (Teil 3: ER, Lysosomen & Zentriolen).",
+                    a: "<h4>ER, Abbau & Zellteilung</h4><ul><li><b>Endoplasmatisches Retikulum (ER):</b> Von Membranen umgeben, über Kernporen mit Kern verbunden. <b>Raues ER:</b> viele Ribosomen angeheftet (stellen Proteine her). <b>Glattes ER:</b> keine Ribosomen, baut Gifte/Medikamente ab, bildet Lipide und Hormone.</li><li><b>Lysosomen:</b> Recycling-Anlagen. Membranbegrenzte, kugelige Vesikel mit Abbauenzymen. Zersetzen aufgenommene Stoffe zu nutzbaren Produkten, bauen beschädigte Zellbestandteile ab.</li><li><b>Zentriolen:</b> Länglich, röhrenförmig aus 3x9 Mikrotubuli. Wichtig in der Zellteilung (Mitose/Meiose): 2 Zentriolen bilden das Zentromer mit aus, an dem sich der Spindelapparat zur Teilung der Schwesterchromosomen bildet.</li></ul>"
+                },
+                {
+                    q: "Was ist ein Zentromer?",
+                    a: "Es ist die Region eines Chromosoms, die die Schwesterchromatiden zusammenhält.<br><br>Dient in der Meta-/Anaphase von Mitose/Meiose als Ansatzpunkt für Spindelfasern (primäre Einschnürungsstelle). Es teilt das Chromosom in zwei oft unterschiedlich lange Schenkel/Arme."
+                },
+                {
+                    q: "Was ist DNA (DNS) und was ist RNA (RNS)?",
+                    a: "<h4>DNA</h4>Erbinformation des Körpers. Makromolekül in Zellen (und vielen Viren) in Form einer Doppelhelix. Trägt Gene mit Infos für Zellfunktion (z.B. Geschlecht, Haar-/Augenfarbe). Bausteine: Zucker (Desoxyribose), Phosphate, 4 Basen (Cytosin, Guanin, Adenin, Thymin).<br><br><h4>RNA</h4>Organische Säuren für die Proteinbiosynthese. Einsträngig, fadenförmig im Zellkern und Zytoplasma. Wird aufgrund von DNA-Infos erstellt. Nukleotidkette aus Phosphatrest, Zuckermolekül, organischer Base (Cytosin, Guanin, Adenin, Uracil)."
+                },
+                {
+                    q: "Was ist der Hauptunterschied der DNA zur RNA?",
+                    a: "Unterschiedliche Basen (Thymin vs. Uracil), unterschiedliche Grundbausteine (Desoxyribose vs. Zucker der RNA), unterschiedlicher Aufbau (Doppelhelix vs. einsträngig) und Funktion/en (Genspeicher vs. Proteinbiosynthese)."
+                }
+            ],
+            "2. Anatomie: Zellzyklus & Teilung": [
+                {
+                    q: "Welche Arten von Zellteilungen kennen Sie? Beschreiben Sie diese und worin sie sich unterscheiden.",
+                    a: "<h4>Zwei Arten der Kernteilung:</h4><ul><li><b>Mitose:</b> Ziel = Zellvermehrung. Mutterzelle bringt 2 genetisch identische Tochterzellen hervor. Besteht aus 4 Phasen.</li><li><b>Meiose (Reifeteilung):</b> Ziel = Erzeugung von Keim-/Geschlechtszellen (Befruchtung bei sex. Fortpflanzung). 2 Schritte mit je 4 Phasen. Bringt 4 genetisch NICHT identische Tochterkerne hervor.</li></ul>"
+                },
+                {
+                    q: "Beschreiben Sie den Vorgang des Zellzyklus mit allen Phasen.",
+                    a: "Proliferierende Zellen durchlaufen den Zyklus. Gliedert sich in Interphase (Phase zwischen Teilungen) und M-Phase (Teilungsphase).<br><br><ul><li><b>G1-Phase:</b> Vorbereitung auf Teilung, wächst stark. Organellen & Plasma werden durch Proteinbiosynthese gebildet. Viel RNA & DNA-Vorstufen entstehen.</li><li><b>G0-Phase:</b> Pause, wenn Zelle sich nicht mehr vermehren soll/kann.</li><li><b>S-Phase (Synthese):</b> DNA-Replikation (Verdopplung des genetischen Materials).</li><li><b>G2-Phase:</b> Vorbereitung Mitose. Zelle wächst durch Flüssigkeitsaufnahme, Mitoseproteine werden gebildet, RNA synthetisiert, Zellkontakte lösen sich.</li><li><b>M-Phase:</b> Spindelapparat-Bildung, Chromatidentrennung, Zellteilung + Cytokinese.</li></ul><img src='https://placehold.co/400x150/e0f7fa/006064?text=Grafik:+Zellzyklus' alt='Platzhalter'><br><a href='https://studyflix.de/biologie/zellzyklus-2585' target='_blank'>Link zum echten Zellzyklus-Bild</a>"
+                },
+                {
+                    q: "In welcher Phase ist die Zelle am strahlenempfindlichsten und weshalb?",
+                    a: "In der <b>M-Phase</b>, weil dort die eigentliche Zellteilung stattfindet."
+                },
+                {
+                    q: "Warum ist die DNA mit Abstand die kritischste Struktur für Zellschädigungen?",
+                    a: "Weil ein Schaden an der DNA nicht oder falsch repariert werden kann und es so zu Mutationen (Tumorentstehung) kommen kann."
+                }
+            ],
+            "3. Physiologie: Organe & Atmung": [
+                {
+                    q: "Welche Aufgaben hat der Magen (Gaster)?",
+                    a: "Muskuläres Hohlorgan zwischen Oesophagus (Speiseröhre) und Duodenum (Darm).<br><br><b>Ablauf:</b> Nahrung wird im Mund gekaut (Verdauungsenzyme, Bolus) -> geschluckt -> Speiseröhre -> Magen. Der Magen speichert, zerkleinert, homogenisiert und andaut die Nahrung, gibt sie portionsweise ans Duodenum weiter.<br><b>2 Abschnitte:</b> Proximaler Teil (Speicher), distaler Teil (Durchmischung & Weitertransport)."
+                },
+                {
+                    q: "Aufgaben und drei Abschnitte des Dünndarms?",
+                    a: "Nahrungsbestandteile weiter zerkleinern & Resorption (Aufnahme in Blutkreislauf/Lymphsystem).<br><br><ul><li><b>Zwölffingerdarm (Duodenum):</b> Zentrale Rolle bei Verkleinerung durch grosse Oberfläche (Darmzotten). Nutzt 2 Säfte: Bauchspeichel (Pancreas) und Galle (Leber/Hepar, zwischengespeichert in Gallenblase/Vesica biliaris).</li><li><b>Leerdarm (Jejunum):</b> Wellenförmiges Zusammenziehen der Darmwand (Peristaltik) vermischt Speisebrei mit Enzymen. Resorption für Stoffwechsel.</li><li><b>Krummdarm (Ileum):</b> Ebenfalls Resorption. Typisch: Ansammlung von Lymphfollikeln (Peyer-Plaques) zur Infektionsabwehr und Weitergabe immunologischer Infos.</li></ul>"
+                },
+                {
+                    q: "Welche Aufgaben und Gliederungen hat der Dickdarm (Colon)?",
+                    a: "<b>Hauptaufgaben:</b> Resorption von Wasser, Eindickung der Fäzes (Stuhl), Sekretion von Schleim.<br><br><b>Gliederung:</b><ul><li>Blinddarm (Caecum) mit Wurmfortsatz (Appendix vermiformis)</li><li>Grimmdarm (Colon)</li><li>Mastdarm (Rectum)</li><li>Analkanal (Canalis analis)</li></ul>"
+                },
+                {
+                    q: "Welche Aufgaben hat die Leber (Hepar)?",
+                    a: "Grösste Drüse & wichtigstes Stoffwechselorgan. <br><ul><li>Kohlenhydrat- (als Glykogen gespeichert), Protein- und Fettstoffwechsel (ständiger Um-/Abbau).</li><li>Endokrines Kontrollorgan & exokrine Drüse.</li><li>Neben Niere das wichtigste Ausscheidungsorgan: produziert Galle zur Ausscheidung von Cholesterin, Abbauprodukten, Giften und Fremdstoffen.</li><li>Speichert Vitamine, Mineralstoffe, Spurenelemente.</li><li>Beteiligt an Immunabwehr (zellulär über Kupffer-Zellen, Regulation systemisch-entzündlicher Reaktionen).</li></ul>"
+                },
+                {
+                    q: "Welche Aufgabe haben die Nieren (Renes)?",
+                    a: "Paariges Organ. <br><ul><li>Primäre Funktion: Harnbildung & damit verbundene Ausscheidung harnpflichtiger Substanzen.</li><li>Synthese verschiedener Hormone.</li><li>Kontrolle des Elektrolyt- und Säure-Basen-Haushalts.</li></ul>"
+                },
+                {
+                    q: "Welche Aufgabe hat die Schilddrüse (Glandula thyroidea)?",
+                    a: "Endokrine Drüse. Thyreozyten bilden mit Hilfe von Iod die Hormone Thyroxin (T4) & Triiodthyronin (T3). Gesteuert durch hypothalamisch-hypophysären-Regelkreis.<br><br><b>Wichtig für:</b><br>1. Wachstum/Entwicklung im Kindesalter (v.a. Gehirn).<br>2. Beschleunigung von Stoffwechselvorgängen (Glykolyse, Lipolyse) = erhöhter O2-Verbrauch & Wärmeproduktion.<br>3. C-Zellen bilden Calcitonin (Regulation Blutkalziumspiegel)."
+                },
+                {
+                    q: "Beschreiben Sie die Physiologie der Atmung (Funktion der Lunge).",
+                    a: "12 bis 15 Mal/Minute, unbewusst, lebenswichtig.<br><b>Gasaustausch:</b> Sauerstoff (O2) & Kohlendioxid (CO2).<br><ul><li><b>Äussere Atmung:</b> Lunge nimmt O2 ins Blut auf, gibt CO2 ab.</li><li><b>Innere Atmung:</b> Zellen nehmen O2 auf, geben Abfallprodukt CO2 ab.</li></ul><b>Weg:</b> Nase/Mund -> Luftröhre (Trachea) -> Hauptbronchien (Pulmones) -> Bronchialbaum -> Bronchiolen -> Lungenbläschen (Alveolen, hier findet Gasaustausch statt).<br><br><b>Aufgaben:</b> Gasaustausch, Regulation Säure-Base-Haushalt, immunologische und endokrine Funktionen."
+                }
+            ],
+            "4. Physiologie: Skelett & Gelenke": [
+                {
+                    q: "Wie ist ein Knochen (Os) aufgebaut?",
+                    a: "Röhrenknochen bestehen aus zwei Enden (Epiphysen) und einem Schaft (Diaphyse).<br><br><b>Beispiele:</b> Oberarmknochen (Humerus), Elle (Ulna), Speiche (Radius), Oberschenkel (Femur), Fingerknochen (Digiti manus).<br><b>Strukturen:</b> Spongiosa, Periost, Kompakta, Markhöhle, Knochenmark.<br><img src='https://placehold.co/400x150/e0f7fa/006064?text=Grafik:+Röhrenknochen' alt='Platzhalter'><br><a href='https://studyflix.de/biologie-schueler/knochen-3279' target='_blank'>Link zum echten Knochen-Bild</a>"
+                },
+                {
+                    q: "Nennen Sie die verschiedenen Gelenksarten.",
+                    a: "Basis: zwei Knochen, die sich gegenüberstehen (Gelenkkopf und Gelenkpfanne).<br><br>Beim Menschen unterscheidet man 5 Typen:<br>1. Kugelgelenk<br>2. Eigelenk<br>3. Sattelgelenk<br>4. Scharniergelenk<br>5. Drehgelenk"
+                }
+            ],
+            "5. Gynäkologie & Vitalzeichen": [
+                {
+                    q: "Schildern Sie den weiblichen Hormonzyklus und seine Steuerung.",
+                    a: "Dauert 24-38 Tage (nur 10-15% exakt 28 Tage, 20% unregelmässig). Beginnt mit Menstruation (Pubertät/Menarche bis Wechseljahre/Menopause).<br><b>Steuerung:</b> Hypothalamus (GnRH) veranlasst Hypophyse zur Bildung von LH und FSH. Regt Eisprung (Ovulation) an und Eierstöcke (Ovarium) bilden Östrogen & Progesteron (stimulieren Uterus & Mammae für Befruchtung).<br><img src='https://placehold.co/400x150/e0f7fa/006064?text=Grafik:+Hormonzyklus' alt='Platzhalter'><br><a href='https://bionorica.de/de/gesundheit/frauengesundheit/der-weibliche-zyklus/auf-einen-blick-der-weibliche-zyklus.html' target='_blank'>Link zum echten Zyklus-Bild</a>"
+                },
+                {
+                    q: "Nennen Sie die drei Phasen des weiblichen Hormonzyklus (Tage 1-27).",
+                    a: "<ul><li><b>1. Zyklushälfte (1.-12. Tag):</b> Desquamations- und Proliferationsphase (Follikel-/Eireifungsphase). Menstruation (Gebärmutterschleimhaut blutet ab, 4-8 Tage).</li><li><b>Eisprung (13.-16. Tag):</b> Fruchtbar, reifes Eibläschen platzt, gibt Eizelle an Eileiter frei (Ovulation).</li><li><b>2. Zyklushälfte (17.-27. Tag):</b> Sekretions-/Lutealphase (Gelbkörperphase). Eibläschen wird zum Gelbkörper. Gebärmutterschleimhaut wird aufgebaut. Ohne Befruchtung: Rückbildung & neuer Zyklus.</li></ul>"
+                },
+                {
+                    q: "Wie verändert sich die weibliche Brust (Mammae) während dem Hormonzyklus?",
+                    a: "<b>Progesteron:</b> beeinflusst die Entwicklung der Milchdrüsen.<br><b>Östrogene:</b> Höhere Werte (vor Eisprung, während Schwangerschaft) lassen Mammae durch Wassereinlagerungen grösser werden (Vorbereitung auf Milchbildung nach Entbindung). Dadurch wird die Brust gespannt und schmerzempfindlich."
+                },
+                {
+                    q: "Nennen Sie die Vitalzeichen und deren Normwerte.",
+                    a: "<b>Puls:</b> Kleinkind 80-110 | Schulkind 70-90 | Jugendl./Erwachsene 60-80 Schläge/Min.<br><br><b>Blutdruck:</b> Schulkind 100/60 | Erwachsene 120/80 | Ältere Menschen 140/90 mmHg.<br><br><b>Atmung:</b> 12-20 Atemzüge/Min (Kinder: bis zu 30).<br><br><b>Körpertemperatur:</b><br>- Untertemperatur: < 36.3°C<br>- Normal: 36.3 - 37.4°C<br>- Leicht erhöht/leichtes Fieber: 37.5 - 38.5°C"
+                }
+            ],
+            "6. Hygiene & Mikrobiologie": [
+                {
+                    q: "Unterscheiden Sie die Begriffe Bakterien und Viren.",
+                    a: "<h4>Viren:</h4>Einfach aufgebaut (Moleküle + oft Eiweisshülle). Enthalten DNA/RNA zur Vermehrung. Bestehen nicht aus Zellen, kein Stoffwechsel, keine Energiegewinnung, keine Proteinsynthese (streng genommen keine Lebewesen). Form: Kaulquappen mit Schwanz, rund, stäbchenförmig.<br><br><h4>Bakterien:</h4>Mikroskopisch (0,1-700 Mikrometer, Vielfaches grösser als Viren). Einzeller, versorgen sich selbst, eigener Stoffwechsel und Erbgut. Form: Kugel, Fäden, Stäbchen, Zylinder. Nur wenige rufen Krankheiten hervor (Krankheitserreger/Pathogene)."
+                },
+                {
+                    q: "Beschreiben Sie den korrekten Vorgang der Händehygiene mit Händedesinfektionsmittel.",
+                    a: "Wichtigste Massnahme zur Verhütung von Krankenhausinfektionen. Händewaschen nur für Minimum (Reinigung), führt oft zu Hautirritationen.<br><br><b>Fünf Prinzipien:</b> 1. Vor/nach Patientenkontakt 2. Nicht sprechen 3. Alle Flächen abdecken 4. Jede Fläche 5 mal 5. Mind 30 sec. (oder bis verdampft).<br><br><b>Ablauf:</b> Ausreichend Mittel aus Spender (mit Ellenbogen betätigen, Hohlhand füllen). Verreiben: beide Hände, Daumen, Fingerkuppen, Nagelfalz. Bei Kontamination auch Unterarme einreiben.<br><img src='https://placehold.co/400x150/e0f7fa/006064?text=Grafik:+Händedesinfektion' alt='Platzhalter'><br><a href='https://de.wikipedia.org/wiki/H%C3%A4ndedesinfektion' target='_blank'>Link zum echten Hygiene-Bild</a>"
+                }
+            ],
+            "7. Pathologie: Knochen & Gelenke": [
+                {
+                    q: "Definieren Sie die Pathologie Arthrose.",
+                    a: "Chronische Arthropathie, gekennzeichnet durch Schädigung und potenziellen Verlust des Gelenkknorpels, zusammen mit Knochenhypertrophie (Bildung von Osteophyten).<br>Wird in primäre (idiopathische) und sekundäre (auf def. Ursachen bezogene) Form eingeteilt.<br><img src='https://placehold.co/400x150/fdebd0/7e5109?text=Röntgenbild:+Arthrose' alt='Platzhalter'><br><a href='https://www.rheumaliga.ch/rheuma-von-a-z/arthrose' target='_blank'>Link zum echten Arthrose-Bild</a>"
+                },
+                {
+                    q: "Definieren Sie die Pathologien Osteoporose und Fraktur.",
+                    a: "<h4>Osteoporose</h4>Progressive metabolische Knochenkrankheit. Erniedrigte Knochenmineraldichte (Masse pro Volumeneinheit) & Zerfall der Struktur. Führt zu Fragilitätsfrakturen nach geringen/stummen Traumata (v.a. thorakale/lumbale Wirbelsäule, Handgelenk, Hüfte).<br><a href='https://www.ksw.ch/gesundheitsthemen/osteoporose/' target='_blank'>Link zum Osteoporose-Bild</a><br><br><h4>Fraktur</h4>Ein Bruch in einem Knochen. Meist durch eine einzige, signifikante Kraft, die auf normalen Knochen ausgeübt wird."
+                },
+                {
+                    q: "Wie unterscheidet man Arthrose, Osteoporose und Fraktur im Röntgenbild?",
+                    a: "<ul><li><b>Arthrose (z.B. Gonarthrose im Knie):</b> Abnahme des Gelenkspaltes (z.B. medial reduziert, lateral nicht). Durch Verlust Menisken reiben Knochen aufeinander = sklerotischer Saum (Verschattung = helle Linie).</li><li><b>Osteoporose:</b> Abnahme der Knochendichte ist als Aufhellung (dunkle, fleckige Bereiche) erkennbar. Ausdünnung Trabekel und sehr dünne Kortikalis (z.B. Mittelhand/Finger).</li><li><b>Fraktur:</b> Kontinuitätsunterbruch als Aufhellung (dunkle Linie) erkennbar (z.B. in Radius bei Kind).</li></ul>"
+                }
+            ],
+            "8. Pathologie: Innere & Onkologie": [
+                {
+                    q: "Definieren Sie die Pathologien Dyspnoe und Pneumonie.",
+                    a: "<h4>Dyspnoe</h4>Subjektive Atemnot. Atmung wird als unangenehm oder anstrengend empfunden (unterschiedlich erfahren je nach Ursache).<br><br><h4>Pneumonie</h4>Akute Entzündung des Lungenparenchyms (Alveolarraum und/oder interstitielles Lungengewebe). In erster Linie infektiös bedingt (Bakterien, Viren, Pilze, Protozoen, Parasiten). Ambulant, nosokomial oder bei Immunsupprimierten. Erstdiagnose meist durch Röntgen-Thorax-Bild & klinische Befunde."
+                },
+                {
+                    q: "Definieren Sie den Begriff Schmerzen und den Unterschied zwischen akut und chronisch.",
+                    a: "Ein unangenehmes Sinnes- oder Gefühlserlebnis, das mit einer tatsächlichen/potenziellen Gewebeschädigung einhergeht (sensorische/emotionale Komponenten).<br><br><b>Akut:</b> Antwort auf Gewebeschädigung. Aktivierung peripherer Schmerzrezeptoren & deren sensorischen ADelta-/C-Nervenfasern (Nozizeptoren).<br><br><b>Chronisch:</b> Mit andauernder Schädigung verbunden (persistierende Aktivierung d. Fasern) ODER durch anhaltende Schädigung/Funktionsstörung des peripheren/zentralen Nervensystems (neuropathisch). Schwere der Verletzung lässt nicht immer auf Schwere der Schmerzen schliessen."
+                },
+                {
+                    q: "Was ist ein Karzinom? Unterschied benigner und maligner Tumor?",
+                    a: "<b>Karzinom:</b> Maligne Erkrankung aus Epithelzellen (Schleimhautzellen). 80% aller malignen soliden Tumore. Lokalisiert oder ausbreitend.<br><br><b>Benigne (gutartig):</b> Erfüllen keine Hyperplasie- oder Malignitätskriterien. Räumlich begrenzt, kapseln sich ab, metastasieren nicht.<br><br><b>Maligne (bösartig):</b> Unkontrolliertes Wachstum (unregulierte Zellproliferation), Invasion in angrenzendes Gewebe, fehlende Differenzierung der Zellen. Bilden Metastasen (via Blut/Lymphsystem)."
+                },
+                {
+                    q: "Was sind Metastasen und wie verbreiten sie sich?",
+                    a: "Zellabsiedlungen eines malignen Tumors (in andere Organe oder ins gleiche). Absiedlung = Metastasierung/Streuung. Bedeutet immer schlechtere Prognose. Besitzen ähnliche (nicht zwingend identische) Eigenschaften wie Primärtumor.<br>Man unterscheidet Lymphknotenmetastasen (Region) und Fernmetastasen (häufig in Leber, Lunge, Knochen, Gehirn).<br><b>Formen:</b> lymphogen, hämatogen, liquorgen, intrakavitär."
+                },
+                {
+                    q: "Benennen Sie die pathologische Unterfunktion der Nieren, den Laborwert und warum er in der Radiologie wichtig ist.",
+                    a: "<b>Niereninsuffizienz:</b> Nieren können Abbauprodukte nicht mehr hinreichend ausscheiden. Akut (Nierenversagen) oder chronisch. Wasser-, Elektrolyt- (Natrium, Kalium, Kalzium, Phosphat) und Säure-Gleichgewicht gestört.<br><br><b>Laborwert:</b> Kreatinin (Stoffwechselprodukt aus Muskeln). Die Kreatinin-Clearance misst die Ausscheidung und schätzt die glomeruläre Filtrationsrate (GFR).<br><br><b>Radiologie:</b> Vor intravasaler Kontrastmittelgabe (Röntgen/MRT) geprüft. Kontrastmittel wird über Niere ausgeschieden. Bei Insuffizienz verlangsamt -> Mittel verweilt zu lange -> Nebenwirkungen."
+                }
+            ]
+        };
+
+        let decks = {};
+        let currentDeckKey = "";
+        let currentIndex = 0;
+
+        function init() {
+            const stored = localStorage.getItem('med_flashcards_v2');
+            if(stored) {
+                decks = JSON.parse(stored);
+            } else {
+                decks = JSON.parse(JSON.stringify(defaultDecks));
+                localStorage.setItem('med_flashcards_v2', JSON.stringify(decks));
+            }
+            
+            // Populate selectors
+            const deckSelect = document.getElementById('deck-select');
+            const editDeckSelect = document.getElementById('edit-deck');
+            deckSelect.innerHTML = "";
+            editDeckSelect.innerHTML = "";
+            
+            for(let key in decks) {
+                let opt1 = document.createElement("option");
+                opt1.value = key;
+                opt1.textContent = key;
+                deckSelect.appendChild(opt1);
+                
+                let opt2 = document.createElement("option");
+                opt2.value = key;
+                opt2.textContent = key;
+                editDeckSelect.appendChild(opt2);
+            }
+
+            currentDeckKey = Object.keys(decks)[0];
+            updateView();
+        }
+
+        function changeDeck() {
+            currentDeckKey = document.getElementById('deck-select').value;
+            currentIndex = 0;
+            updateView();
+        }
+
+        function updateView() {
+            let cards = decks[currentDeckKey];
+            if(!cards || cards.length === 0) return;
+            
+            const flashcard = document.getElementById('flashcard');
+            flashcard.classList.remove('is-flipped');
+            
+            setTimeout(() => {
+                document.getElementById('card-front').innerHTML = cards[currentIndex].q;
+                document.getElementById('card-back').innerHTML = cards[currentIndex].a;
+                document.getElementById('progress').innerText = `Karte ${currentIndex + 1} von ${cards.length}`;
+                
+                document.getElementById('edit-q').value = cards[currentIndex].q;
+                document.getElementById('edit-a').value = cards[currentIndex].a;
+                document.getElementById('edit-deck').value = currentDeckKey;
+            }, 150);
+        }
+
+        function flipCard() { document.getElementById('flashcard').classList.toggle('is-flipped'); }
+
+        function nextCard() {
+            let cards = decks[currentDeckKey];
+            currentIndex = (currentIndex + 1) % cards.length;
+            updateView();
+        }
+
+        function prevCard() {
+            let cards = decks[currentDeckKey];
+            currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+            updateView();
+        }
+
+        function toggleEditForm() {
+            const form = document.getElementById('edit-form');
+            form.style.display = form.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function saveNewCard() {
+            const targetDeck = document.getElementById('edit-deck').value;
+            const q = document.getElementById('edit-q').value;
+            const a = document.getElementById('edit-a').value;
+            if(q && a) {
+                decks[targetDeck].push({q, a});
+                localStorage.setItem('med_flashcards_v2', JSON.stringify(decks));
+                
+                if(targetDeck === currentDeckKey) {
+                    currentIndex = decks[currentDeckKey].length - 1;
+                    updateView();
+                } else {
+                    alert("Karte im Deck '" + targetDeck + "' gespeichert.");
+                }
+                toggleEditForm();
+            }
+        }
+
+        function updateCurrentCard() {
+            const targetDeck = document.getElementById('edit-deck').value;
+            const q = document.getElementById('edit-q').value;
+            const a = document.getElementById('edit-a').value;
+            
+            if(q && a) {
+                if(targetDeck === currentDeckKey) {
+                    decks[currentDeckKey][currentIndex] = {q, a};
+                } else {
+                    // Move card to another deck
+                    decks[currentDeckKey].splice(currentIndex, 1);
+                    decks[targetDeck].push({q, a});
+                    currentIndex = 0; 
+                    currentDeckKey = targetDeck;
+                    document.getElementById('deck-select').value = targetDeck;
+                }
+                localStorage.setItem('med_flashcards_v2', JSON.stringify(decks));
+                updateView();
+                toggleEditForm();
+            }
+        }
+
+        function resetCards() {
+            if(confirm("ACHTUNG: Willst du alle eigenen Änderungen komplett löschen und den Original-Zustand wiederherstellen?")) {
+                decks = JSON.parse(JSON.stringify(defaultDecks));
+                localStorage.setItem('med_flashcards_v2', JSON.stringify(decks));
+                currentDeckKey = Object.keys(decks)[0];
+                document.getElementById('deck-select').value = currentDeckKey;
+                currentIndex = 0;
+                updateView();
+            }
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

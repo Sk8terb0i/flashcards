@@ -1,0 +1,21 @@
+{
+  "name": "Biology",
+  "short_name": "Biology",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ede9e3",
+  "theme_color": "#ede9e3",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

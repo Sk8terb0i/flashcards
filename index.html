@@ -3,113 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#f2ece6">
-    <title>Med Flash</title>
-
-    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEyMCIgZmlsbD0iI2ZmNzViOCIvPjxwb2x5Z29uIHBvaW50cz0iMjU2LDExMCAyMDAsMjEwIDEwMCwyMTAgMTc1LDI5MCAxNTAsNDAwIDI1NiwzMjUgMzYyLDQwMCAzMzcsMjkwIDQxMiwyMTAgMzEyLDIxMCIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==">
+    <meta name="theme-color" content="#eae6df">
+    <title>Biology Flashcards</title>
 
     <style>
         :root {
-            /* Color Palette based on inspiration */
-            --bg-color: #f2ece6;
-            --text-dark: #1d1d1f;
-            --text-light: #6e6e73;
-            --card-front-1: #ffb3c6; /* Soft Pink */
-            --card-front-2: #c1e1c1; /* Mint Green */
-            --card-front-3: #ffdfba; /* Peach/Orange */
-            --card-front-4: #bae1ff; /* Light Blue */
-            --card-front-5: #fdfd96; /* Soft Yellow */
-            --btn-wrong: #ff6b6b;
-            --btn-correct: #4ecdc4;
-            --btn-training: #9b59b6;
+            --bg-cream: #eae6df;
+            --text-dark: #1a1a1a;
+            --blob-pink: #ff7597;
+            --blob-olive: #6b8e23;
+            --blob-navy: #1f3c5b;
+            --blob-sand: #d4cbb8;
+            --white: #ffffff;
+            --danger: #e74c3c;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Rounded", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+            background-color: var(--bg-cream);
             color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- HOME SCREEN --- */
+        #home-screen {
+            padding: 40px 20px 20px 20px;
+            height: 100%;
+            overflow-y: auto;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px 15px;
-            margin: 0;
-            height: 100vh;
-            box-sizing: border-box;
-            overflow: hidden; /* Verhindert Scrollen auf App-Ebene */
         }
 
-        /* Top Bar */
-        .header {
+        .subject-title {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 30px;
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
+            text-align: left;
+        }
+
+        .deck-list {
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-bottom: 40px;
+        }
+
+        .deck-card {
+            border-radius: 32px;
+            padding: 30px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 160px;
+        }
+
+        /* Cute Blob Eyes */
+        .eyes {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .eye {
+            width: 18px;
+            height: 18px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .eye::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--text-dark);
+            border-radius: 50%;
+            transform: translateX(2px); /* Looking right slightly */
+        }
+
+        .deck-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin: 0 0 5px 0;
+            line-height: 1.1;
+        }
+
+        .deck-info {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .deck-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 20px;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+        .action-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .action-btn.play { flex-grow: 1; justify-content: center; }
+        
+        /* Badges for Fails */
+        .fail-badge {
+            background: var(--danger);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        /* --- LEARNING SCREEN --- */
+        #learn-screen {
+            display: none;
+            flex-direction: column;
+            height: 100vh;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: var(--bg-cream);
+            z-index: 10;
+            box-sizing: border-box;
+            padding: env(safe-area-inset-top, 20px) 20px env(safe-area-inset-bottom, 20px) 20px;
+        }
+
+        .learn-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        h1 {
-            font-size: 28px;
-            font-weight: 800;
-            margin: 0;
-            letter-spacing: -0.5px;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto 20px auto;
         }
 
-        .badge {
-            background: var(--text-dark);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        /* Deck Selector Pill */
-        select {
-            appearance: none;
-            background-color: white;
-            color: var(--text-dark);
-            font-weight: 700;
-            font-size: 16px;
-            padding: 12px 20px;
-            border-radius: 30px;
+        .back-btn {
+            background: none;
             border: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            width: 100%;
-            max-width: 400px;
-            margin-bottom: 15px;
-            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text-dark);
             cursor: pointer;
-            outline: none;
+            padding: 10px;
         }
 
-        /* Flashcard Container */
-        .flashcard-container {
-            perspective: 1200px;
-            width: 100%;
-            max-width: 400px;
+        .progress-indicator {
+            font-weight: 800;
+            font-size: 16px;
+            background: var(--white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .card-wrapper {
             flex-grow: 1;
-            max-height: 55vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1500px;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
             position: relative;
-            margin-bottom: 20px;
         }
 
         .flashcard {
             width: 100%;
-            height: 100%;
+            height: 70vh;
+            max-height: 600px;
             position: absolute;
             transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             transform-style: preserve-3d;
-            cursor: pointer;
             border-radius: 32px;
-            box-shadow: 0 16px 32px rgba(0,0,0,0.08);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            cursor: pointer;
         }
 
         .flashcard.is-flipped { transform: rotateY(180deg); }
-        
+
         .card-face {
             position: absolute;
             width: 100%;
@@ -121,497 +227,529 @@
             display: flex;
             flex-direction: column;
             overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
-
-        /* Scrollbar ausblenden aber Funktion behalten */
         .card-face::-webkit-scrollbar { display: none; }
-        .card-face { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Front of Card (Questions) */
-        .card-front { 
-            justify-content: center; 
-            align-items: center; 
-            text-align: center; 
-            font-size: 24px; 
-            font-weight: 800;
-            line-height: 1.3;
-            letter-spacing: -0.5px;
-            background-color: var(--card-front-1); /* Wird per JS dynamisch */
-        }
-
-        /* Back of Card (Answers) */
-        .card-back { 
-            transform: rotateY(180deg); 
-            background-color: white;
-            justify-content: flex-start;
-            font-size: 17px;
-            line-height: 1.6;
-            color: var(--text-dark);
-        }
-
-        .card-back h4 { 
-            margin-top: 0; 
-            font-size: 20px; 
-            font-weight: 800; 
-            margin-bottom: 12px;
-            color: var(--text-dark);
-        }
-
-        .card-back img { 
-            max-width: 100%; 
-            border-radius: 16px; 
-            margin: 15px 0; 
-        }
-
-        ul { padding-left: 20px; margin-top: 5px; margin-bottom: 15px;}
-        li { margin-bottom: 8px; }
-        a { color: var(--text-dark); text-decoration: underline; font-weight: 700; text-decoration-thickness: 2px; }
-
-        /* Controls */
-        .controls-wrapper {
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            padding-bottom: env(safe-area-inset-bottom, 20px);
-        }
-
-        .swipe-controls {
-            display: flex;
-            gap: 15px;
-            width: 100%;
-        }
-
-        button {
-            border: none;
-            border-radius: 24px;
-            padding: 18px 20px;
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--text-dark);
-            cursor: pointer;
-            transition: transform 0.1s;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .card-front {
+            background-color: var(--blob-pink);
+            color: var(--white);
             justify-content: center;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            align-items: center;
+            text-align: center;
+            font-size: 28px;
+            font-weight: 900;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        .card-back {
+            background-color: var(--white);
+            color: var(--text-dark);
+            transform: rotateY(180deg);
+            font-size: 16px;
+            line-height: 1.6;
+            font-weight: 500;
         }
         
-        button:active { transform: scale(0.95); }
-        button small { font-size: 12px; font-weight: 600; opacity: 0.7; margin-top: 4px;}
-
-        .btn-wrong { background-color: white; }
-        .btn-correct { background-color: var(--text-dark); color: white; }
-        .btn-training { background-color: var(--btn-training); color: white; flex-direction: row; gap: 10px; padding: 15px;}
-        .btn-normal { background-color: var(--text-dark); color: white; display: none; padding: 15px;}
-
-        .training-count {
-            background-color: white;
-            color: var(--btn-training);
-            border-radius: 12px;
-            padding: 2px 8px;
-            font-size: 14px;
-            font-weight: 800;
+        .card-back h4 {
+            margin-top: 0;
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 10px;
         }
+        .card-back ul { padding-left: 20px; margin-top: 0; }
+        .card-back li { margin-bottom: 8px; }
+        .card-back a { color: var(--blob-navy); font-weight: 800; }
+        .card-back img { max-width: 100%; border-radius: 12px; margin-bottom: 15px; border: 1px solid #eee;}
+
+        /* Desktop Controls (Hidden on Mobile) */
+        .desktop-controls {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        
+        .desktop-controls.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .d-btn {
+            background: var(--white);
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.1s;
+        }
+        .d-btn:active { transform: scale(0.9); }
+
+        @media (max-width: 768px) {
+            .desktop-controls { display: none !important; }
+        }
+
+        /* Shake Animation for wrong interaction */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        .shake { animation: shake 0.4s; }
 
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Minds</h1>
-        <div class="badge" id="progress">1 / X</div>
-    </div>
-    
-    <select id="deck-select" onchange="changeDeck()"></select>
-
-    <div class="flashcard-container" id="card-container">
-        <div class="flashcard" id="flashcard">
-            <div class="card-face card-front" id="card-front">Lade...</div>
-            <div class="card-face card-back" id="card-back">Lade...</div>
-        </div>
+    <div id="home-screen">
+        <div class="subject-title">Biology</div>
+        <div class="deck-list" id="deck-list">
+            </div>
     </div>
 
-    <div class="controls-wrapper">
-        <div class="swipe-controls">
-            <button class="btn-wrong" onclick="markWrong()">No ❌<small>Swipe Left</small></button>
-            <button class="btn-correct" onclick="markCorrect()">Yes ✅<small>Swipe Right</small></button>
+    <div id="learn-screen">
+        <div class="learn-header">
+            <button class="back-btn" onclick="goHome()">✖</button>
+            <div class="progress-indicator" id="progress">1 / 10</div>
         </div>
-        <button class="btn-training" id="btn-training" onclick="toggleTrainingMode()">
-            Practice Fails <span class="training-count" id="wrong-count">0</span>
-        </button>
-        <button class="btn-normal" id="btn-normal" onclick="toggleTrainingMode()">
-            Back to Decks
-        </button>
+        
+        <div class="card-wrapper" id="card-container">
+            <div class="flashcard" id="flashcard">
+                <div class="card-face card-front" id="card-front">Lade...</div>
+                <div class="card-face card-back" id="card-back">Lade...</div>
+            </div>
+        </div>
+
+        <div class="desktop-controls" id="desktop-controls">
+            <button class="d-btn" onclick="markWrong()">❌</button>
+            <button class="d-btn" onclick="markCorrect()">✅</button>
+        </div>
     </div>
 
     <script>
-        // Farbpalette für zufällige Karten-Vorderseiten
-        const colors = ['var(--card-front-1)', 'var(--card-front-2)', 'var(--card-front-3)', 'var(--card-front-4)', 'var(--card-front-5)'];
-
-        // Komplett aufgeteilte Daten - KEIN Informationsverlust!
-        const decks = {
-            "1. Anatomie: Zelle (Teil 1)": [
-                {
-                    q: "Zellkern & Kernkörperchen",
-                    a: "<h4>Zellkern (Nucleus)</h4>Zentrum der Zelle. Steuert wichtige Stoffwechselprozesse (z.B. Zellteilung), lagert die Erbinformation (DNA) in Form von Chromosomen.<br><br><h4>Kernkörperchen (Nucleolus)</h4>Kleine, kugelförmige Struktur im Kern. Besteht aus DNA, RNA, Proteinen und Enzymen. Wichtig für Synthese von Ribosomen (und somit Zellteilung)."
-                },
-                {
-                    q: "Zellplasma & Zellskelett",
-                    a: "<h4>Zellplasma (Zytoplasma)</h4>Besteht aus dem flüssigen Zytosol (Wasser, Proteine, Lipide, RNA, Kohlenhydrate, Ionen, Enzyme) und dem festen Zytoskelett. Aufgaben: Steuerung Stoffwechselprozesse, Abbau schädlicher Substanzen.<br><br><h4>Zellskelett (Mikrotubuli)</h4>Stütz- und Bewegungsapparat, beteiligt an Zellteilung und Zellmotilität (Bewegung)."
-                },
-                {
-                    q: "Zellmembran (Plasmamembran)",
-                    a: "<h4>Aufbau & Funktion</h4>Trennt Zelle vom extrazellulären Raum, grenzt Organellen ab (Barriere). Lipiddoppelschicht mit eingebauten Lipiden/Proteinen. Ermöglicht Stofftransport und Zellkommunikation.<br><br>*(Ausnahme: Zellkern & Mitochondrien haben zwei Membranen)*."
-                },
-                {
-                    q: "Mitochondrien & Ribosomen",
-                    a: "<h4>Mitochondrien</h4>Kraftwerke der Zelle. Energieproduktion (Zellatmung, ATP-Synthese). Besitzen 2 Membranen, eigene DNA und Ribosomen.<br><br><h4>Ribosomen</h4>Frei oder am rauen ER gebunden. Beteiligt an der Proteinbiosynthese (Synthetisieren Proteine nach Bauanleitung aus Zellkern)."
-                }
-            ],
-            "2. Anatomie: Zelle (Teil 2)": [
-                {
-                    q: "Golgi-Apparat & Lysosomen",
-                    a: "<h4>Golgi-Apparat</h4>Zentrum des Stofftransports. Transport von Proteinen/Lipiden, führt Modifikationen aus dem ER fort.<br><br><h4>Lysosomen</h4>Recycling-Anlagen. Membranbegrenzte, kugelige Vesikel mit Abbauenzymen. Zersetzen aufgenommene Stoffe zu nutzbaren Produkten, bauen beschädigte Zellbestandteile ab."
-                },
-                {
-                    q: "Endoplasmatisches Retikulum & Zentriolen",
-                    a: "<h4>Endoplasmatisches Retikulum (ER)</h4>Von Membranen umgeben, über Kernporen mit Kern verbunden.<br><b>Raues ER:</b> viele Ribosomen angeheftet (stellen Proteine her).<br><b>Glattes ER:</b> keine Ribosomen, baut Gifte/Medikamente ab, bildet Lipide und Hormone.<br><br><h4>Zentriolen</h4>Länglich, röhrenförmig aus 3x9 Mikrotubuli. Wichtig in der Zellteilung: 2 Zentriolen bilden das Zentromer mit aus, an dem sich der Spindelapparat zur Teilung der Schwesterchromosomen bildet."
-                },
-                {
-                    q: "Was ist ein Zentromer?",
-                    a: "Es ist die Region eines Chromosoms, die die Schwesterchromatiden zusammenhält.<br><br>Dient in der Meta-/Anaphase von Mitose/Meiose als Ansatzpunkt für Spindelfasern (primäre Einschnürungsstelle). Es teilt das Chromosom in zwei oft unterschiedlich lange Schenkel/Arme."
-                }
-            ],
-            "3. Anatomie: DNA & Zellteilung": [
-                {
-                    q: "Was ist DNA (DNS)?",
-                    a: "Erbinformation des Körpers. Makromolekül in Zellen (und vielen Viren) in Form einer Doppelhelix. Trägt Gene mit Infos für Zellfunktion (z.B. Geschlecht, Haar-/Augenfarbe).<br><br><b>Bausteine:</b> Zucker (Desoxyribose), Phosphate, 4 Basen (Cytosin, Guanin, Adenin, Thymin)."
-                },
-                {
-                    q: "Was ist RNA (RNS)?",
-                    a: "Organische Säuren für die Proteinbiosynthese. Einsträngig, fadenförmig im Zellkern und Zytoplasma. Wird aufgrund von DNA-Infos erstellt.<br><br><b>Bausteine:</b> Nukleotidkette aus Phosphatrest, Zuckermolekül, organischer Base (Cytosin, Guanin, Adenin, Uracil)."
-                },
-                {
-                    q: "Was ist der Hauptunterschied der DNA zur RNA?",
-                    a: "<ul><li>Unterschiedliche Basen (Thymin vs. Uracil)</li><li>Unterschiedliche Grundbausteine (Desoxyribose vs. Zucker der RNA)</li><li>Unterschiedlicher Aufbau (Doppelhelix vs. einsträngig)</li><li>Unterschiedliche Funktion/en (Genspeicher vs. Proteinbiosynthese)</li></ul>"
-                },
-                {
-                    q: "Arten von Zellteilungen (Mitose & Meiose)",
-                    a: "<h4>Mitose</h4>Ziel = Zellvermehrung. Mutterzelle bringt 2 genetisch identische Tochterzellen hervor. Besteht aus 4 Phasen.<br><br><h4>Meiose (Reifeteilung)</h4>Ziel = Erzeugung von Keim-/Geschlechtszellen (Befruchtung bei sex. Fortpflanzung). 2 Schritte mit je 4 Phasen. Bringt 4 genetisch NICHT identische Tochterkerne hervor."
-                }
-            ],
-            "4. Anatomie: Zellzyklus": [
-                {
-                    q: "Der Zellzyklus: G1, G0 & S-Phase",
-                    a: "Proliferierende Zellen durchlaufen den Zyklus. Gliedert sich in Interphase und M-Phase.<br><br><ul><li><b>G1-Phase:</b> Vorbereitung auf Teilung, wächst stark. Organellen & Plasma werden durch Proteinbiosynthese gebildet. Viel RNA & DNA-Vorstufen entstehen.</li><li><b>G0-Phase:</b> Pause, wenn Zelle sich nicht mehr vermehren soll/kann.</li><li><b>S-Phase (Synthese):</b> DNA-Replikation (Verdopplung des genetischen Materials).</li></ul><a href='https://studyflix.de/biologie/zellzyklus-2585' target='_blank'>Link zum Zyklus-Bild</a>"
-                },
-                {
-                    q: "Der Zellzyklus: G2 & M-Phase",
-                    a: "<ul><li><b>G2-Phase:</b> Vorbereitung Mitose. Zelle wächst durch Flüssigkeitsaufnahme, Mitoseproteine werden gebildet, RNA synthetisiert, Zellkontakte lösen sich.</li><li><b>M-Phase:</b> Spindelapparat-Bildung, Chromatidentrennung, Zellteilung + Cytokinese.</li></ul>"
-                },
-                {
-                    q: "Strahlenempfindlichkeit & DNA-Schäden",
-                    a: "<h4>Strahlenempfindlichkeit</h4>In welcher Phase am grössten? In der <b>M-Phase</b>, weil dort die eigentliche Zellteilung stattfindet.<br><br><h4>DNA-Schädigung</h4>Warum ist die DNA die kritischste Struktur? Weil ein Schaden an der DNA nicht oder falsch repariert werden kann und es so zu Mutationen (Tumorentstehung) kommen kann."
-                }
-            ],
-            "5. Physiologie: Verdauung & Organe": [
-                {
-                    q: "Aufgaben des Magens (Gaster)",
-                    a: "Muskuläres Hohlorgan zwischen Oesophagus (Speiseröhre) und Duodenum (Darm).<br><br><b>Ablauf:</b> Nahrung im Mund gekaut (Verdauungsenzyme, Bolus) -> geschluckt -> Speiseröhre -> Magen. Der Magen speichert, zerkleinert, homogenisiert und andaut die Nahrung, gibt sie portionsweise ans Duodenum weiter.<br><br><b>2 Abschnitte:</b> Proximaler Teil (Speicher), distaler Teil (Durchmischung & Weitertransport)."
-                },
-                {
-                    q: "Dünndarm (Duodenum) - Zwölffingerdarm",
-                    a: "<b>Aufgabe:</b> Nahrungsbestandteile weiter zerkleinern & Resorption (Aufnahme in Blutkreislauf/Lymphsystem).<br><br><h4>Zwölffingerdarm (Duodenum)</h4>Zentrale Rolle bei Verkleinerung durch grosse Oberfläche (Darmzotten). Nutzt 2 Säfte: Bauchspeichel (Pancreas) und Galle (Leber/Hepar, zwischengespeichert in Gallenblase/Vesica biliaris)."
-                },
-                {
-                    q: "Dünndarm - Leerdarm & Krummdarm",
-                    a: "<h4>Leerdarm (Jejunum)</h4>Wellenförmiges Zusammenziehen der Darmwand (Peristaltik) vermischt Speisebrei mit Enzymen. Resorption für Stoffwechsel.<br><br><h4>Krummdarm (Ileum)</h4>Ebenfalls Resorption. Typisch: Ansammlung von Lymphfollikeln (Peyer-Plaques) zur Infektionsabwehr und Weitergabe immunologischer Infos."
-                },
-                {
-                    q: "Aufgaben & Gliederung des Dickdarms (Colon)",
-                    a: "<b>Hauptaufgaben:</b> Resorption von Wasser, Eindickung der Fäzes (Stuhl), Sekretion von Schleim.<br><br><b>Gliederung:</b><ul><li>Blinddarm (Caecum) mit Wurmfortsatz (Appendix vermiformis)</li><li>Grimmdarm (Colon)</li><li>Mastdarm (Rectum)</li><li>Analkanal (Canalis analis)</li></ul>"
-                }
-            ],
-            "6. Physiologie: Leber, Niere & Schilddrüse": [
-                {
-                    q: "Leber (Hepar) - Stoffwechsel & Drüse",
-                    a: "Grösste Drüse & wichtigstes Stoffwechselorgan.<br><br><ul><li><b>Stoffwechsel:</b> Kohlenhydrat- (als Glykogen gespeichert), Protein- und Fettstoffwechsel (ständiger Um-/Abbau).</li><li><b>Drüse:</b> Endokrines Kontrollorgan & exokrine Drüse.</li></ul>"
-                },
-                {
-                    q: "Leber (Hepar) - Ausscheidung & Immunabwehr",
-                    a: "<ul><li><b>Ausscheidung:</b> Neben Niere wichtigstes Ausscheidungsorgan: produziert Galle zur Ausscheidung von Cholesterin, Abbauprodukten, Giften und Fremdstoffen.</li><li><b>Speicherung:</b> Speichert Vitamine, Mineralstoffe, Spurenelemente.</li><li><b>Immunabwehr:</b> Beteiligt an Immunabwehr (zellulär über Kupffer-Zellen, Regulation systemisch-entzündlicher Reaktionen).</li></ul>"
-                },
-                {
-                    q: "Aufgaben der Nieren (Renes)",
-                    a: "Paariges Organ. <br><br><ul><li><b>Primäre Funktion:</b> Harnbildung & damit verbundene Ausscheidung harnpflichtiger Substanzen.</li><li>Synthese verschiedener Hormone.</li><li>Kontrolle des Elektrolyt- und Säure-Basen-Haushalts.</li></ul>"
-                },
-                {
-                    q: "Schilddrüse (Glandula thyroidea) - Hormone",
-                    a: "Endokrine Drüse. Thyreozyten bilden mit Hilfe von Iod die Hormone <b>Thyroxin (T4)</b> & <b>Triiodthyronin (T3)</b>.<br><br>Gesteuert durch hypothalamisch-hypophysären-Regelkreis."
-                },
-                {
-                    q: "Schilddrüse - Funktionen",
-                    a: "Wichtig für:<br><br>1. Wachstum/Entwicklung im Kindesalter (v.a. Gehirn).<br>2. Beschleunigung von Stoffwechselvorgängen (Glykolyse, Lipolyse) = erhöhter O2-Verbrauch & Wärmeproduktion.<br>3. C-Zellen bilden Calcitonin (Regulation Blutkalziumspiegel)."
-                }
-            ],
-            "7. Physiologie: Atmung, Skelett & Gelenke": [
-                {
-                    q: "Atmung - Prinzip & Gasaustausch",
-                    a: "12 bis 15 Mal/Minute, unbewusst, lebenswichtig.<br><b>Gasaustausch:</b> Sauerstoff (O2) & Kohlendioxid (CO2).<br><br><ul><li><b>Äussere Atmung:</b> Lunge nimmt O2 ins Blut auf, gibt CO2 ab.</li><li><b>Innere Atmung:</b> Zellen nehmen O2 auf, geben Abfallprodukt CO2 ab.</li></ul>"
-                },
-                {
-                    q: "Atmung - Weg der Luft & Aufgaben",
-                    a: "<b>Weg:</b> Nase/Mund -> Luftröhre (Trachea) -> Hauptbronchien (Pulmones) -> Bronchialbaum -> Bronchiolen -> Lungenbläschen (Alveolen, hier findet Gasaustausch statt).<br><br><b>Aufgaben Lunge:</b> Gasaustausch, Regulation Säure-Base-Haushalt, immunologische und endokrine Funktionen."
-                },
-                {
-                    q: "Aufbau eines Knochens (Os)",
-                    a: "Röhrenknochen bestehen aus zwei Enden (Epiphysen) und einem Schaft (Diaphyse).<br><br><b>Beispiele:</b> Oberarmknochen (Humerus), Elle (Ulna), Speiche (Radius), Oberschenkel (Femur), Fingerknochen (Digiti manus).<br><b>Strukturen:</b> Spongiosa, Periost, Kompakta, Markhöhle, Knochenmark.<br><br><a href='https://studyflix.de/biologie-schueler/knochen-3279' target='_blank'>Link zum Knochen-Bild</a>"
-                },
-                {
-                    q: "Gelenksarten",
-                    a: "Basis: zwei Knochen, die sich gegenüberstehen (Gelenkkopf und Gelenkpfanne).<br><br>Beim Menschen unterscheidet man 5 Typen:<br>1. Kugelgelenk<br>2. Eigelenk<br>3. Sattelgelenk<br>4. Scharniergelenk<br>5. Drehgelenk"
-                }
-            ],
-            "8. Gynäkologie & Vitalzeichen": [
-                {
-                    q: "Steuerung des weiblichen Hormonzyklus",
-                    a: "Dauert 24-38 Tage (nur 10-15% exakt 28 Tage, 20% unregelmässig). Beginnt mit Menstruation (Pubertät/Menarche bis Wechseljahre/Menopause).<br><br><b>Steuerung:</b> Hypothalamus (GnRH) veranlasst Hypophyse zur Bildung von LH und FSH. Regt Eisprung (Ovulation) an und Eierstöcke (Ovarium) bilden Östrogen & Progesteron (stimulieren Uterus & Mammae für Befruchtung).<br><br><a href='https://bionorica.de/de/gesundheit/frauengesundheit/der-weibliche-zyklus/auf-einen-blick-der-weibliche-zyklus.html' target='_blank'>Link zum Zyklus-Bild</a>"
-                },
-                {
-                    q: "Zyklusphasen: 1. Hälfte & Eisprung",
-                    a: "<ul><li><b>1. Zyklushälfte (1.-12. Tag):</b> Desquamations- und Proliferationsphase (Follikel-/Eireifungsphase). Menstruation (Gebärmutterschleimhaut blutet ab, 4-8 Tage).</li><li><b>Eisprung (13.-16. Tag):</b> Fruchtbar, reifes Eibläschen platzt, gibt Eizelle an Eileiter frei (Ovulation).</li></ul>"
-                },
-                {
-                    q: "Zyklusphasen: 2. Hälfte (Gelbkörperphase)",
-                    a: "<b>2. Zyklushälfte (17.-27. Tag):</b> Sekretions-/Lutealphase (Gelbkörperphase).<br><br>Eibläschen wird zum Gelbkörper. Gebärmutterschleimhaut wird aufgebaut. Ohne Befruchtung: Rückbildung & neuer Zyklus."
-                },
-                {
-                    q: "Veränderung der Brust (Mammae) im Zyklus",
-                    a: "<b>Progesteron:</b> beeinflusst die Entwicklung der Milchdrüsen.<br><br><b>Östrogene:</b> Höhere Werte (vor Eisprung, während Schwangerschaft) lassen Mammae durch Wassereinlagerungen grösser werden (Vorbereitung auf Milchbildung nach Entbindung). Dadurch wird die Brust gespannt und schmerzempfindlich."
-                },
-                {
-                    q: "Vitalzeichen: Puls & Blutdruck",
-                    a: "<h4>Puls</h4>Kleinkind 80-110 | Schulkind 70-90 | Jugendl./Erwachsene 60-80 Schläge/Min.<br><br><h4>Blutdruck</h4>Schulkind 100/60 | Erwachsene 120/80 | Ältere Menschen 140/90 mmHg."
-                },
-                {
-                    q: "Vitalzeichen: Atmung & Körpertemperatur",
-                    a: "<h4>Atmung</h4>12-20 Atemzüge/Min (Kinder: bis zu 30).<br><br><h4>Körpertemperatur</h4>- Untertemperatur: < 36.3°C<br>- Normal: 36.3 - 37.4°C<br>- Leicht erhöht/leichtes Fieber: 37.5 - 38.5°C"
-                }
-            ],
-            "9. Hygiene & Mikrobiologie": [
-                {
-                    q: "Was sind Viren?",
-                    a: "Einfach aufgebaut (Moleküle + oft Eiweisshülle). Enthalten DNA/RNA zur Vermehrung.<br><br>Bestehen nicht aus Zellen, kein Stoffwechsel, keine Energiegewinnung, keine Proteinsynthese (streng genommen keine Lebewesen). Form: Kaulquappen mit Schwanz, rund, stäbchenförmig."
-                },
-                {
-                    q: "Was sind Bakterien?",
-                    a: "Mikroskopisch (0,1-700 Mikrometer, Vielfaches grösser als Viren).<br><br>Einzeller, versorgen sich selbst, eigener Stoffwechsel und Erbgut. Form: Kugel, Fäden, Stäbchen, Zylinder. Nur wenige rufen Krankheiten hervor (Krankheitserreger/Pathogene)."
-                },
-                {
-                    q: "Händehygiene: Korrekter Vorgang",
-                    a: "Wichtigste Massnahme zur Verhütung von Krankenhausinfektionen. Händewaschen nur für Minimum (Reinigung), führt oft zu Hautirritationen.<br><br><b>Fünf Prinzipien:</b> 1. Vor/nach Patientenkontakt 2. Nicht sprechen 3. Alle Flächen abdecken 4. Jede Fläche 5 mal 5. Mind 30 sec. (oder bis verdampft).<br><br><b>Ablauf:</b> Ausreichend Mittel aus Spender (mit Ellenbogen betätigen, Hohlhand füllen). Verreiben: beide Hände, Daumen, Fingerkuppen, Nagelfalz. Bei Kontamination auch Unterarme einreiben.<br><a href='https://de.wikipedia.org/wiki/H%C3%A4ndedesinfektion' target='_blank'>Link zum Hygiene-Bild</a>"
-                }
-            ],
-            "10. Pathologie: Knochen & Gelenke": [
-                {
-                    q: "Arthrose (Definition)",
-                    a: "Chronische Arthropathie, gekennzeichnet durch Schädigung und potenziellen Verlust des Gelenkknorpels, zusammen mit Knochenhypertrophie (Bildung von Osteophyten).<br><br>Wird in primäre (idiopathische) und sekundäre (auf def. Ursachen bezogene) Form eingeteilt.<br><br><a href='https://www.rheumaliga.ch/rheuma-von-a-z/arthrose' target='_blank'>Link zum Arthrose-Bild</a>"
-                },
-                {
-                    q: "Osteoporose (Definition)",
-                    a: "Progressive metabolische Knochenkrankheit. Erniedrigte Knochenmineraldichte (Masse pro Volumeneinheit) & Zerfall der Struktur.<br><br>Führt zu Fragilitätsfrakturen nach geringen/stummen Traumata (v.a. thorakale/lumbale Wirbelsäule, Handgelenk, Hüfte).<br><br><a href='https://www.ksw.ch/gesundheitsthemen/osteoporose/' target='_blank'>Link zum Osteoporose-Bild</a>"
-                },
-                {
-                    q: "Fraktur (Definition)",
-                    a: "Ein Bruch in einem Knochen. Meist durch eine einzige, signifikante Kraft, die auf normalen Knochen ausgeübt wird."
-                },
-                {
-                    q: "Arthrose im Röntgenbild",
-                    a: "<b>Arthrose (z.B. Gonarthrose im Knie):</b> Abnahme des Gelenkspaltes (z.B. medial reduziert, lateral nicht). Durch Verlust Menisken reiben Knochen aufeinander = sklerotischer Saum (Verschattung = helle Linie)."
-                },
-                {
-                    q: "Osteoporose & Fraktur im Röntgenbild",
-                    a: "<ul><li><b>Osteoporose:</b> Abnahme der Knochendichte ist als Aufhellung (dunkle, fleckige Bereiche) erkennbar. Ausdünnung Trabekel und sehr dünne Kortikalis (z.B. Mittelhand/Finger).</li><li><b>Fraktur:</b> Kontinuitätsunterbruch als Aufhellung (dunkle Linie) erkennbar (z.B. in Radius bei Kind).</li></ul>"
-                }
-            ],
-            "11. Pathologie: Innere & Onkologie": [
-                {
-                    q: "Dyspnoe",
-                    a: "Subjektive Atemnot. Atmung wird als unangenehm oder anstrengend empfunden (unterschiedlich erfahren je nach Ursache)."
-                },
-                {
-                    q: "Pneumonie",
-                    a: "Akute Entzündung des Lungenparenchyms (Alveolarraum und/oder interstitielles Lungengewebe). In erster Linie infektiös bedingt (Bakterien, Viren, Pilze, Protozoen, Parasiten).<br><br>Ambulant, nosokomial oder bei Immunsupprimierten. Erstdiagnose meist durch Röntgen-Thorax-Bild & klinische Befunde."
-                },
-                {
-                    q: "Schmerz & Akuter Schmerz",
-                    a: "<h4>Schmerz Definition</h4>Ein unangenehmes Sinnes- oder Gefühlserlebnis, das mit einer tatsächlichen/potenziellen Gewebeschädigung einhergeht (sensorische/emotionale Komponenten).<br><br><h4>Akuter Schmerz</h4>Antwort auf Gewebeschädigung. Aktivierung peripherer Schmerzrezeptoren & deren sensorischen ADelta-/C-Nervenfasern (Nozizeptoren)."
-                },
-                {
-                    q: "Chronischer Schmerz",
-                    a: "Mit andauernder Schädigung verbunden (persistierende Aktivierung d. Fasern) ODER durch anhaltende Schädigung/Funktionsstörung des peripheren/zentralen Nervensystems (neuropathisch).<br><br><i>Schwere der Verletzung lässt nicht immer auf Schwere der Schmerzen schliessen.</i>"
-                },
-                {
-                    q: "Karzinom & Benigner Tumor",
-                    a: "<h4>Karzinom</h4>Maligne Erkrankung aus Epithelzellen (Schleimhautzellen). 80% aller malignen soliden Tumore. Lokalisiert oder ausbreitend.<br><br><h4>Benigner Tumor (gutartig)</h4>Erfüllen keine Hyperplasie- oder Malignitätskriterien. Räumlich begrenzt, kapseln sich ab, metastasieren nicht."
-                },
-                {
-                    q: "Maligner Tumor",
-                    a: "<b>Bösartig:</b> Unkontrolliertes Wachstum (unregulierte Zellproliferation), Invasion in angrenzendes Gewebe, fehlende Differenzierung der Zellen. Bilden Metastasen (via Blut/Lymphsystem)."
-                },
-                {
-                    q: "Metastasen",
-                    a: "Zellabsiedlungen eines malignen Tumors (in andere Organe oder ins gleiche). Absiedlung = Metastasierung/Streuung. Bedeutet immer schlechtere Prognose. Besitzen ähnliche (nicht zwingend identische) Eigenschaften wie Primärtumor.<br><br>Man unterscheidet Lymphknotenmetastasen (Region) und Fernmetastasen (häufig in Leber, Lunge, Knochen, Gehirn).<br><b>Formen:</b> lymphogen, hämatogen, liquorgen, intrakavitär."
-                },
-                {
-                    q: "Niereninsuffizienz",
-                    a: "Nieren können Abbauprodukte nicht mehr hinreichend ausscheiden. Akut (Nierenversagen) oder chronisch.<br><br>Wasser-, Elektrolyt- (Natrium, Kalium, Kalzium, Phosphat) und Säure-Gleichgewicht gestört."
-                },
-                {
-                    q: "Nierenwerte & Radiologie",
-                    a: "<h4>Laborwert</h4>Kreatinin (Stoffwechselprodukt aus Muskeln). Die Kreatinin-Clearance misst die Ausscheidung und schätzt die glomeruläre Filtrationsrate (GFR).<br><br><h4>Radiologie</h4>Vor intravasaler Kontrastmittelgabe (Röntgen/MRT) geprüft. Kontrastmittel wird über Niere ausgeschieden. Bei Insuffizienz verlangsamt -> Mittel verweilt zu lange -> Nebenwirkungen."
-                }
-            ]
+        // DATA STRUCTURE WITH EXACT CITATIONS
+        const data = {
+            "Zytologie (Zelle & Zellkern)": {
+                color: "var(--blob-pink)",
+                cards: [
+                    {
+                        q: "Zellkern (Nucleus)",
+                        a: "Der Zellkern ist das Zentrum der Zelle. [cite: 3, 4]<br><br>Die Hauptfunktionen sind die Steuerung wichtiger Stoffwechselprozesse wie zum Beispiel der Zellteilung. [cite: 4]<br><br>Er lagert die Erbinformationen (DNA) in Form von Chromosomen. [cite: 4]"
+                    },
+                    {
+                        q: "Kernkörperchen (Nucleolus)",
+                        a: "Der Nucleolus ist eine kleine, kugelförmige Struktur innerhalb des Zellkerns. [cite: 5, 6]<br><br>Er besteht aus DNA, RNA, Proteinen und Enzymen. [cite: 7]<br><br>Spielt eine wichtige Rolle bei der Synthese von Ribosomen und somit der Zellteilung. [cite: 7]"
+                    },
+                    {
+                        q: "Zellskelett (Mikrotubuli)",
+                        a: "Das Zytoskelett ist der Stütz- und Bewegungsapparat der Zelle. [cite: 8, 9]<br><br>Es ist an der Zellteilung und der Zellmotilität (Bewegung) beteiligt. [cite: 9]"
+                    },
+                    {
+                        q: "Zellplasma (Zytoplasma)",
+                        a: "Zytosol und Zytoskelett (fester Bestandteil) zusammen werden als Zytoplasma bezeichnet. [cite: 10, 11]<br><br>Das Zytosol ist der flüssige Bestandteil des Zytoplasmas. [cite: 11]<br><br>Es enthält viele chemische Substanzen wie Wasser, Proteine, Lipide, Ribonukleinsäure, Kohlenhydrate, Ionen und Enzyme. [cite: 12, 13]<br><br>Wichtigste Aufgaben: Steuerung verschiedener Stoffwechselprozesse und der Abbau von schädlichen Substanzen. [cite: 14]"
+                    }
+                ]
+            },
+            "Zytologie (Membran & Organellen)": {
+                color: "var(--blob-olive)",
+                cards: [
+                    {
+                        q: "Zellmembran (Plasmamembran)",
+                        a: "Alle Zellen sind durch eine Membran (Haut) vom extrazellulären Raum getrennt. [cite: 15, 16]<br><br>Auch innerhalb der Zellen sind die verschiedenen Zellorganellen durch Membranen zum Zytoplasma abgegrenzt (Barriere). [cite: 17, 18]<br><br>Membranen bestehen aus einer Lipiddoppelschicht (Ausnahme Zellkern und Mitochondrien: sind von zwei Membranen umhüllt). [cite: 19]<br><br>In der Doppellipidschicht sind weitere Lipide und Proteine eingebaut, sie ermöglichen den Stofftransport und die Kommunikation mit anderen Zellen. [cite: 20, 21]"
+                    },
+                    {
+                        q: "Mitochondrien",
+                        a: "Mitochondrien sind Zellorganellen, in denen im Zuge der Zellatmung Energie produziert wird. [cite: 22]<br><br>Werden als Kraftwerke der Zelle bezeichnet. [cite: 23]<br><br>Besitzen zwei Membranen und eigene DNA sowie Ribosomen. [cite: 23]<br><br>Hauptaufgabe besteht in der ATP-Synthese. [cite: 24]"
+                    },
+                    {
+                        q: "Ribosomen & Golgi-Apparat",
+                        a: "<h4>Ribosomen [cite: 25]</h4>Kommen frei in der Zelle oder gebunden an das raue endoplasmatische Retikulum vor. [cite: 26] Sind im Zuge der Proteinbiosynthese daran beteiligt, dass Proteine auf Grundlage der Bauanleitung im Zellkern synthetisiert werden. [cite: 27]<br><br><h4>Golgi-Apparat [cite: 33]</h4>Ist ein Zellorganell und das Zentrum des Stofftransports in der Zelle. [cite: 34] Neben dem Transport von Proteinen und Lipiden werden hier auch die im ER begonnenen Modifikationen fortgeführt. [cite: 35]"
+                    },
+                    {
+                        q: "Endoplasmatisches Retikulum (ER)",
+                        a: "Beim ER unterscheidet man zwischen dem rauen ER und dem glatten ER. [cite: 28, 29]<br><br>Es ist von Membranen umgeben und über Kernporen mit dem Zellkern verbunden. [cite: 30]<br><br>Am rauen ER sind viele Ribosomen angeheftet, welche Proteine herstellen. [cite: 31]<br><br>Am glatten ER gibt es keine Ribosomen; es ist für den Abbau von Giften und Medikamenten zuständig oder an der Bildung von Lipiden oder Hormonen beteiligt. [cite: 32]"
+                    },
+                    {
+                        q: "Lysosomen",
+                        a: "Die membranbegrenzten, kugeligen Zellorganellen sind die 'Recycling-Anlagen' der Zelle. [cite: 36, 37]<br><br>Lysosomen sind Vesikel, in denen sich bestimmte Abbauenzyme befinden. [cite: 37]<br><br>Dienen dazu, verschiedene von der Zelle aufgenommene Stoffe zu zersetzen (für die Zelle nutzbare Produkte entstehen). [cite: 37]<br><br>Bauen beschädigte Zellbestandteile ab, sodass die Bausteine wieder genutzt werden können. [cite: 37]"
+                    },
+                    {
+                        q: "Zentriolen & Zentromer",
+                        a: "<h4>Zentriolen [cite: 38]</h4>Zellorganell, das aus 3x9 Mikrotubuli besteht, länglich und röhrenförmig. [cite: 39, 40] Wichtig während Zellteilung: Zwei Zentriolen bilden das Zentromer mit aus. [cite: 40] Hier bildet sich der Spindelapparat aus, der Schwesterchromosomen teilt (richtiges Zellorganell für Mitose/Meiose). [cite: 41, 42]<br><br><h4>Zentromer [cite: 43]</h4>Region eines Chromosoms, die Schwesterchromatiden zusammenhält und in der Meta-/Anaphase als Ansatzpunkt für Spindelfasern dient. [cite: 44, 45] Teilt das Chromosom in zwei oft unterschiedlich lange Schenkel oder Arme. [cite: 46]"
+                    }
+                ]
+            },
+            "Zellteilung, DNA & RNA": {
+                color: "var(--blob-navy)",
+                cards: [
+                    {
+                        q: "Was ist DNA (DNS)?",
+                        a: "Die DNA ist die Erbinformation unseres Körpers. [cite: 47, 48]<br><br>Makromolekül aus dem Zucker Desoxyribose, Phosphaten und vier verschiedenen Basen (Cytosin, Guanin, Adenin, Thymin). [cite: 48]<br><br>In einer Doppelhelix angeordnet, kommt in Zellen und bei vielen Viren vor. [cite: 49, 52]<br><br>Trägt die Gene mit den für die Zellfunktion notwendigen Informationen (Geschlecht, Haar-, Augenfarbe). [cite: 50, 51]"
+                    },
+                    {
+                        q: "Was ist RNA (RNS)?",
+                        a: "RNA (Ribonukleinsäuren) sind organische Säuren, massgebliche Rolle bei der Neubildung von Proteinen in Zellen (Proteinbiosynthese). [cite: 53, 54]<br><br>Einsträngige, fadenförmige Makromoleküle im Zellkern und Zytoplasma. [cite: 55]<br><br>Nukleotide bestehen aus Phosphatrest, Zuckermolekül und organischer Base (Cytosin, Guanin, Adenin, Uracil). [cite: 56, 57, 58]<br><br>Werden auf Grundlage der Informationen auf der DNA erstellt. [cite: 56]"
+                    },
+                    {
+                        q: "Unterschied DNA zur RNA",
+                        a: "Der Hauptunterschied liegt in: [cite: 59]<br><br><ul><li>Unterschiedlichen Basen [cite: 60]</li><li>Unterschiedlichen Grundbausteinen [cite: 60]</li><li>Unterschiedlichem Aufbau und Funktion/en. [cite: 60]</li></ul>"
+                    },
+                    {
+                        q: "Arten von Zellteilungen (Mitose & Meiose)",
+                        a: "Die Mitose und die Meiose sind zwei Arten der Kernteilung bei eukaryotischen Zellen. [cite: 61, 62, 63]<br><br><h4>Mitose</h4>Ziel ist die Vermehrung von Zellen. [cite: 64] Entstandene Tochterzellen müssen genetisch identisch mit der Mutterzelle sein. [cite: 65] Besteht aus vier Phasen, in denen der ursprüngliche Zellkern zwei genetisch identische Tochterkerne hervorbringt. [cite: 69, 70]<br><br><h4>Meiose (Reifeteilung)</h4>Erzeugt Keimzellen oder Geschlechtszellen (Befruchtung bei sexueller Fortpflanzung). [cite: 66, 67] Besteht aus zwei Schritten mit jeweils vier Phasen und bringt vier genetisch nicht identische Tochterkerne hervor. [cite: 71]"
+                    },
+                    {
+                        q: "Der Zellzyklus (G1, G0, S-Phase)",
+                        a: "Der Zellzyklus umfasst die Abfolge von Vorgängen, die in einer Zelle von einer Zellteilung zur nächsten ablaufen. [cite: 72, 73, 74] Gliedert sich in Interphase und Mitosephase. [cite: 75]<br><br><ul><li><b>G1-Phase:</b> Vorbereitung auf Zellteilung, Zelle wächst stark. Organellen/Plasma werden durch Proteinbiosynthese gebildet. Grosse Mengen RNA und DNA-Vorstufen entstehen. [cite: 76, 86, 89, 90]</li><li><b>G0-Phase:</b> Zellen machen Pause, wenn sie sich nicht weiter vermehren sollen/können. [cite: 77, 87, 91, 92]</li><li><b>S-Phase (Synthese):</b> DNA-Replikation (Zelle verdoppelt genetisches Material). [cite: 80, 93]</li></ul><a href='https://studyflix.de/biologie/zellzyklus-2585' target='_blank'>Zellzyklus Grafik [cite: 62, 88]</a>"
+                    },
+                    {
+                        q: "Der Zellzyklus (G2 & M-Phase) & DNA-Schäden",
+                        a: "<ul><li><b>G2-Phase:</b> Vorbereitung für Mitose. Wächst durch Flüssigkeitsaufnahme, Mitoseproteine werden gebildet, RNA synthetisiert, löst Kontakte zu anderen Zellen. [cite: 78, 94, 95, 96]</li><li><b>M-Phase:</b> Bildung des Spindelapparates, Chromatiden Trennung, Zellteilung (Mitose). [cite: 84, 97]</li></ul><br><b>Strahlenempfindlichkeit:</b> In der M-Phase am grössten, weil dort die Zellteilung stattfindet. [cite: 98, 99]<br><br><b>DNA-Schäden:</b> DNA ist die kritischste Struktur, weil ein Schaden nicht oder falsch repariert werden kann und es zu Mutationen = Tumorentstehung kommen kann. [cite: 100, 101]"
+                    }
+                ]
+            },
+            "Physiologie: Verdauung & Atmung": {
+                color: "var(--blob-pink)",
+                cards: [
+                    {
+                        q: "Magen (Gaster)",
+                        a: "Muskuläres Hohlorgan, liegt zwischen Oesophagus und Duodenum. [cite: 103, 104]<br><br>Nimmt Nahrung auf, zersetzt sie und gibt sie an den Darm weiter. [cite: 105]<br><br>Aufgenommene Nahrung wird im Mund mechanisch zerkleinert (erste Verdauungsenzyme), als Bolus heruntergeschluckt und gelangt über Oesophagus in den Magen. [cite: 106, 107, 108]<br><br>Dort gespeichert, zerkleinert, homogenisiert, angedaut und portionsweise weitergegeben. [cite: 108]<br><br>Proximaler Teil: speichernd. Distaler Teil: Durchmischung/Weitertransport. [cite: 109]"
+                    },
+                    {
+                        q: "Dünndarm (Duodenum) - Aufbau & Funktion",
+                        a: "Aufgabe: Nahrungsbestandteile weiter zerkleinern. [cite: 110, 111]<br><br>Zerlegte Stoffe werden über Darmwand zurück in Blutkreislauf/Lymphsystem aufgenommen = Resorption. [cite: 112]<br><br><h4>Zwölffingerdarm (Duodenum)</h4>Zentrale Rolle bei Verkleinerung (erleichtert durch grosse Oberfläche/Darmzotten). [cite: 113, 114, 115] Zwei Verdauungssäfte helfen: Bauchspeichel (Pancreas) und Galle aus Leber (Hepar), welche in Gallenblase (Vesica biliaris) zwischengespeichert wird. [cite: 116]"
+                    },
+                    {
+                        q: "Dünndarm - Jejunum & Ileum",
+                        a: "<h4>Leerdarm (Jejunum)</h4>Darmwand zieht sich wellenförmig zusammen (Peristaltik), um Speisebrei mit Enzymen gut zu vermischen. [cite: 117, 118] Gespaltene Nährstoffe werden über Darmwand aufgenommen (Resorption) und verstoffwechselt. [cite: 119]<br><br><h4>Krummdarm (Ileum)</h4>Ebenfalls Resorption. Typisch sind Ansammlungen von Lymphfollikeln (Peyer-Plaques). [cite: 119, 120] Sie gehören zum Lymphsystem, spielen wichtige Rolle bei Infektionsabwehr und Weiterverbreitung immunologischer Informationen. [cite: 121]"
+                    },
+                    {
+                        q: "Dickdarm (Colon)",
+                        a: "Hauptaufgaben: Resorption von Wasser, einhergehende Eindickung der Fäzes (Stuhl), Sekretion von Schleim. [cite: 122, 123]<br><br>Gliedert sich in: [cite: 124]<br><ul><li>Blinddarm (Caecum) mit Wurmfortsatz (Appendix vermiformis) [cite: 125]</li><li>Grimmdarm (Colon) [cite: 126]</li><li>Mastdarm (Rectum) [cite: 127]</li><li>Analkanal (Canalis analis) [cite: 128]</li></ul>"
+                    },
+                    {
+                        q: "Atmung (Gasaustausch)",
+                        a: "12 bis 15 Mal/Minute, unbewusst, lebenswichtig. [cite: 164, 165, 166]<br><br>Austausch der Atemgase Sauerstoff (O2) und Kohlendioxid (CO2). [cite: 167]<br><ul><li><b>Äussere Atmung:</b> In der Lunge wird eingeatmeter O2 ins Blut aufgenommen und zu Zellen transportiert. [cite: 167]</li><li><b>Innere Atmung:</b> Dort wird O2 verbraucht und CO2 als Abfallprodukt ins Blut abgegeben. [cite: 168]</li></ul>"
+                    },
+                    {
+                        q: "Atmung - Atemwege & Aufgaben",
+                        a: "<b>Weg:</b> Nase/Mund -> Luftröhre (Trachea) -> beiden Hauptbronchien -> beide Lungen (Pulmones). [cite: 169] Hauptbronchien verzweigen in Bronchialbaum. [cite: 170] Kleinsten Verzweigungen (Bronchiolen) münden in Lungenbläschen (Alveolen). [cite: 171] Dort findet Gasaustausch statt. [cite: 172]<br><br><b>Aufgaben Atmungssystem:</b> Atmung (Gasaustausch), dadurch Regulation des Säure-Base-Haushaltes, immunologische und endokrine Funktionen. [cite: 173]"
+                    }
+                ]
+            },
+            "Physiologie: Leber, Niere, Schilddrüse": {
+                color: "var(--blob-olive)",
+                cards: [
+                    {
+                        q: "Leber (Hepar) - Stoffwechsel",
+                        a: "Die Leber ist die grösste Drüse und das wichtigste Stoffwechselorgan des Körpers. [cite: 129, 130]<br><br>Übernimmt wichtige Funktionen innerhalb des Kohlenhydrat-, Protein- und Fettstoffwechsels: Kohlenhydrate in Form von Glykogen gespeichert, Proteine/Fette unterliegen Um- und Abbau. [cite: 131]<br><br>Dient als endokrines Kontrollorgan und fungiert als exokrine Drüse. [cite: 132]"
+                    },
+                    {
+                        q: "Leber (Hepar) - Ausscheidung & Immunabwehr",
+                        a: "Neben der Niere das wichtigste Organ für die Ausscheidung von Cholesterin, Abbauprodukten, Gift- und Fremdstoffen (durch die Produktion der Galle). [cite: 132]<br><br>Speichert Vitamine, Mineralstoffe und Spurenelemente. [cite: 133]<br><br>Ist an der Immunabwehr beteiligt (zelluläre Immunabwehr über Kupffer-Zellen, Regulation von systemisch-entzündlichen Reaktionen). [cite: 133]"
+                    },
+                    {
+                        q: "Nieren (Renes)",
+                        a: "Paariges Organ. Primäre Funktion ist die Harnbildung und die damit verbundene Ausscheidung u.a. der harnpflichtigen Substanzen. [cite: 134, 135]<br><br>Neben der Funktion als Harnorgan spielt die Niere eine Rolle bei der Synthese verschiedener Hormone und der Kontrolle des Elektrolyt- und Säure-Basen-Haushalts. [cite: 136]"
+                    },
+                    {
+                        q: "Schilddrüse (Glandula thyroidea)",
+                        a: "Endokrine Drüse. In Thyreozyten wird mit Hilfe von Iod Thyroxin (T4) und Triiodthyronin (T3) gebildet und sezerniert. [cite: 137, 138]<br><br>Gesteuert durch hypothalamisch-hypophysären-Regelkreis. [cite: 139]<br><br>Wichtig für:<br>1. Wachstum und Entwicklung im Kindesalter (v.a. Gehirn). [cite: 140]<br>2. Beschleunigung von Stoffwechselvorgängen (Glykolyse, Lipolyse) = erhöhter O2-Verbrauch & Wärmeproduktion. [cite: 141]<br>3. C-Zellen bilden Calcitonin (beteiligt an Regulation des Blutkalziumspiegels). [cite: 142]"
+                    }
+                ]
+            },
+            "Skelett, Gelenke & Vitalzeichen": {
+                color: "var(--blob-navy)",
+                cards: [
+                    {
+                        q: "Aufbau eines Knochens (Os)",
+                        a: "Röhrenknochen sind aus zwei Enden (Epiphysen) und einem Schaft (Diaphyse) aufgebaut. [cite: 143, 144]<br><br>Beispiele: Oberarmknochen (Humerus), Elle (Ulna), Speiche (Radius), Oberschenkelknochen (Femur), Fingerknochen (Digiti manus). [cite: 145]<br><br>Strukturen: Spongiosa, Periost, Kompakta, Markhöhle, Knochenmark. [cite: 146, 147, 148, 149, 150, 151, 152, 153, 154]<br><br><a href='https://studyflix.de/biologie-schueler/knochen-3279' target='_blank'>Knochen-Aufbau Bild [cite: 155]</a>"
+                    },
+                    {
+                        q: "Gelenksarten",
+                        a: "Die 'Basis' eines Gelenks bilden zwei Knochen (Gelenkkopf und Gelenkpfanne), die sich gegenüberstehen. [cite: 156, 157]<br><br>Beim Menschen unterscheidet man hauptsächlich fünf Gelenktypen: [cite: 158]<br>1. Kugelgelenk [cite: 159]<br>2. Eigelenk [cite: 160]<br>3. Sattelgelenk [cite: 161]<br>4. Scharniergelenk [cite: 162]<br>5. Drehgelenk [cite: 163]"
+                    },
+                    {
+                        q: "Vitalzeichen: Puls & Blutdruck",
+                        a: "<h4>Puls [cite: 219, 220]</h4><ul><li>Kleinkind: 80-110 Schläge/Minute [cite: 222]</li><li>Schulkind: 70-90 Schläge/Minute [cite: 223]</li><li>Jugendliche/Erwachsene: 60-80 Schläge/Minute [cite: 224]</li></ul><br><h4>Blutdruck [cite: 221]</h4><ul><li>Schulkind: 100/60 mmHg [cite: 225]</li><li>Erwachsene: 120/80 mmHg [cite: 226]</li><li>Ältere Menschen: 140/90 mmHg [cite: 227]</li></ul>"
+                    },
+                    {
+                        q: "Vitalzeichen: Atmung & Temperatur",
+                        a: "<h4>Atmung [cite: 228]</h4>12-20 Atemzüge/Minute (Kinder: bis zu 30 Atemzüge/Minute) [cite: 230, 231]<br><br><h4>Körpertemperatur [cite: 229]</h4><ul><li>Untertemperatur: < 36.3°C [cite: 234]</li><li>Normaltemperatur: 36.3 - 37.4°C [cite: 235]</li><li>Leicht erhöhte Temperatur bis leichtes Fieber: 37.5 - 38.5°C [cite: 236]</li></ul>"
+                    }
+                ]
+            },
+            "Gynäkologie & Hygiene": {
+                color: "var(--blob-pink)",
+                cards: [
+                    {
+                        q: "Hormonzyklus - Steuerung",
+                        a: "Dauert 24-38 Tage (nur 10-15% exakt 28 Tage, 20% unregelmässig). Beginnt bei Menarche (Pubertät), endet mit Menopause (Klimakterium). [cite: 174, 175, 178, 180, 181, 182]<br><br><b>Steuerung:</b> Hypothalamus sendet Gonadotropin-Releasing-Hormon (GnRH), veranlasst Hypophyse LH und FSH zu bilden. [cite: 184] Regt Eisprung (Ovulation) an und Eierstöcke (Ovarium) bilden Östrogen & Progesteron. [cite: 185] Diese stimulieren Uterus & Mammae (Brust), sich auf Befruchtung vorzubereiten. [cite: 186]<br><br><a href='https://bionorica.de/de/gesundheit/frauengesundheit/der-weibliche-zyklus/auf-einen-blick-der-weibliche-zyklus.html' target='_blank'>Zyklus Grafik [cite: 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215]</a>"
+                    },
+                    {
+                        q: "Hormonzyklus - Phasen",
+                        a: "<ul><li><b>1. Zyklushälfte (1.-12. Tag):</b> Desquamations- und Proliferationsphase (Follikel-/Eireifungsphase). Menstruation: Gebärmutterschleimhaut blutet ab (4-8 Tage). [cite: 176, 177, 179, 183, 187]</li><li><b>Eisprung (13.-16. Tag):</b> Fruchtbar, reifes Eibläschen platzt, gibt Eizelle an Eileiter frei (Ovulation). [cite: 188]</li><li><b>2. Zyklushälfte (17.-27. Tag):</b> Sekretions-/Lutealphase (Gelbkörperphase). Eibläschen fällt zusammen, wird zum Gelbkörper. Gebärmutterschleimhaut wird aufgebaut. Ohne Befruchtung: Rückbildung & neuer Zyklus. [cite: 189, 190, 191]</li></ul>"
+                    },
+                    {
+                        q: "Veränderung der Brust (Mammae)",
+                        a: "Progesteron beeinflusst die Entwicklung der Milchdrüsen in der Brust. [cite: 216, 217]<br><br>Östrogene: Höhere Werte (vor Eisprung, während Schwangerschaft) lassen Mammae durch Wassereinlagerungen grösser werden (Vorbereitung auf Milchbildung nach Entbindung). [cite: 217, 218]<br><br>Deshalb ist die Mammae oft gespannt und schmerzempfindlich. [cite: 218]"
+                    },
+                    {
+                        q: "Bakterien vs. Viren",
+                        a: "<h4>Viren [cite: 237, 238]</h4>Einfach aufgebaut (Moleküle + oft Eiweisshülle). Enthalten Erbgut (DNA/RNA) zur Vermehrung. [cite: 238, 239] Keine Zellen, kein Stoffwechsel, keine Energiegewinnung, keine Proteinsynthese (streng genommen keine Lebewesen). [cite: 240, 241] Formen: Kaulquappen mit Schwanz, rund, stäbchenförmig. [cite: 242]<br><br><h4>Bakterien [cite: 243]</h4>Mikroskopisch (0,1-700 Mikrometer, Vielfaches grösser als Viren). [cite: 243, 244] Einzeller, versorgen sich selbst, eigener Stoffwechsel und Erbgut. [cite: 245, 246] Formen: Kugel, Fäden, Stäbchen, Zylinder. [cite: 244] Nur wenige rufen Krankheiten hervor (Pathogene). [cite: 247]"
+                    },
+                    {
+                        q: "Händehygiene (Vorgang)",
+                        a: "Wichtigste Massnahme zur Verhütung von Krankenhausinfektionen. [cite: 248, 263] Händewaschen nur für Minimum (Reinigung), führt häufiger zu Hautirritationen. [cite: 264, 265]<br><br><b>Fünf Prinzipien:</b> 1. Vor/nach Patientenkontakt 2. Nicht sprechen 3. Alle Flächen abdecken 4. Jede Fläche 5 mal 5. Mind 30 sec. (oder bis verdampft). [cite: 249, 250, 251, 252, 253, 254]<br><br><b>Ablauf:</b> Ausreichend Mittel aus Spender (mit Ellenbogen betätigen, Hohlhand füllen). [cite: 255, 256] Verreiben: beide Hände, Daumen, Fingerkuppen, Nagelfalz. [cite: 257] Bei Kontamination auch Unterarme einreiben. [cite: 258]<br><a href='https://de.wikipedia.org/wiki/H%C3%A4ndedesinfektion' target='_blank'>Hygiene Bild [cite: 259, 260, 261, 262]</a>"
+                    }
+                ]
+            },
+            "Pathologie: Skelett & Innere": {
+                color: "var(--blob-olive)",
+                cards: [
+                    {
+                        q: "Arthrose (Definition)",
+                        a: "Chronische Arthropathie, gekennzeichnet durch Schädigung und potenziellen Verlust des Gelenkknorpels, zusammen mit Knochenhypertrophie (Bildung von Osteophyten). [cite: 266, 267, 268, 269]<br><br>Wird in primäre (idiopathische) und sekundäre (auf definierte Ursachen bezogene) Form eingeteilt. [cite: 270]<br><br><a href='https://www.rheumaliga.ch/rheuma-von-a-z/arthrose' target='_blank'>Arthrose Bild [cite: 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289]</a>"
+                    },
+                    {
+                        q: "Osteoporose & Fraktur (Definition)",
+                        a: "<h4>Osteoporose [cite: 290]</h4>Progressive metabolische Knochenkrankheit mit erniedrigter Knochenmineraldichte (Masse pro Volumeneinheit) und Zerfall der Struktur. [cite: 291] Anfälligkeit führt zu Frakturen nach geringen oder stummen Traumata (v.a. thorakale/lumbale Wirbelsäule, Handgelenk, Hüfte = Fragilitätsfrakturen). [cite: 292, 293] <a href='https://www.ksw.ch/gesundheitsthemen/osteoporose/' target='_blank'>[cite: 294]</a><br><br><h4>Fraktur [cite: 295]</h4>Ein Bruch in einem Knochen, meist durch eine einzige, signifikante Kraft auf normalen Knochen ausgeübt. [cite: 296]"
+                    },
+                    {
+                        q: "Röntgenbild: Arthrose, Osteo, Fraktur",
+                        a: "<h4>Arthrose [cite: 297, 298]</h4>Abnahme des Gelenkspaltes (z.B. medial reduziert, lateral nicht). [cite: 298, 299] Durch Verlust der Menisken reiben Knochen aufeinander, zeigt sich als sklerotischer Saum (Verschattung = helle Linie). [cite: 300]<br><h4>Osteoporose [cite: 301]</h4>Abnahme der Knochendichte als Aufhellung (dunkle, fleckige Bereiche). [cite: 301] Ausdünnung Trabekel und sehr dünne Kortikalis (Mittelhand/Finger). [cite: 302]<br><h4>Fraktur [cite: 303]</h4>Kontinuitätsunterbruch als Aufhellung (dunkle Linie) erkennbar (z.B. im Radius). [cite: 303]"
+                    },
+                    {
+                        q: "Dyspnoe & Pneumonie",
+                        a: "<h4>Dyspnoe [cite: 304]</h4>Bedeutet subjektive Atemnot. Atmung wird als unangenehm oder anstrengend empfunden (unterschiedlich erfahren je nach Ursache). [cite: 305, 306]<br><br><h4>Pneumonie [cite: 307]</h4>Akute Entzündung des Lungenparenchyms (Alveolarraum und/oder interstitielles Lungengewebe), in erster Linie infektiös bedingt (Bakterien, Viren, Pilze, Protozoen, Parasiten). [cite: 308, 309] Ambulant, nosokomial oder bei Immunsupprimierten. [cite: 309] Erstdiagnose üblicherweise durch Röntgen-Thorax-Bild & klinische Befunde. [cite: 310]"
+                    },
+                    {
+                        q: "Schmerz (Akut vs. Chronisch)",
+                        a: "Ein unangenehmes Sinnes- oder Gefühlserlebnis, das mit einer tatsächlichen/potenziellen Gewebeschädigung einhergeht (sensorische und emotionale Komponenten). [cite: 311, 312, 313, 314]<br><br><b>Akut:</b> Antwort auf Gewebeschädigung, entsteht durch Aktivierung peripherer Schmerzrezeptoren & deren spezifischen sensorischen ADelta- und C-Nervenfasern (Nozizeptoren). [cite: 315]<br><br><b>Chronisch:</b> Mit andauernder Schädigung verbunden (persistierende Aktivierung d. Fasern) oder durch anhaltende Schädigung/Funktionsstörungen des peripheren/zentralen Nervensystems (neuropathisch). [cite: 316, 318] Schwere der Verletzung lässt nicht immer auf Schwere schliessen. [cite: 317]"
+                    }
+                ]
+            },
+            "Pathologie: Onkologie & Niere": {
+                color: "var(--blob-navy)",
+                cards: [
+                    {
+                        q: "Karzinom & Benigner Tumor",
+                        a: "<h4>Karzinom [cite: 319]</h4>Maligne Erkrankung, die sich aus Epithelzellen (Schleimhautzellen) entwickelt. [cite: 320] Macht rund 80% aller maligner solider Tumoren aus. Können sich ausbreiten oder auf Ursprungsort beschränkt sein. [cite: 321]<br><br><h4>Benigner Tumor (gutartig) [cite: 322]</h4>Erfüllt weder Kriterien für Hyperplasie noch für bösartigen Tumor. [cite: 323] Räumlich begrenzt durch Kapseln vom umgebenden Gewebe, metastasieren nicht. [cite: 324, 325]"
+                    },
+                    {
+                        q: "Maligner Tumor & Metastasen",
+                        a: "<h4>Maligner Tumor [cite: 326]</h4>Wächst unkontrolliert (unregulierte Zellenproliferation) in anderes Gewebe hinein. [cite: 326] Eigenschaften: Fehlende Differenzierung, lokale Invasion, Metastasen (Ausbreitung durch Blut-/Lymphsystem). [cite: 327, 328, 329, 330]<br><br><h4>Metastasen [cite: 331]</h4>Zellabsiedlungen eines malignen Tumors in andere Organe oder das gleiche (Metastasierung/Streuung). [cite: 331, 332, 333] Immer mit schlechterer Prognose verbunden. [cite: 334] Lymphknotenmetastasen vs. Fernmetastasen (häufig Leber, Lunge, Knochen, Gehirn). [cite: 336, 337] Formen: lymphogen, hämatogen, liquorgen, intrakavitär. [cite: 338] Besitzen ähnliche, nicht zwingend identische Zelleigenschaften. [cite: 335]"
+                    },
+                    {
+                        q: "Niereninsuffizienz & Labor",
+                        a: "<h4>Niereninsuffizienz [cite: 339, 340]</h4>Nieren können Abbauprodukte des Stoffwechsels nicht mehr hinreichend ausscheiden. [cite: 340] Akut (Nierenversagen) oder chronisch. [cite: 341, 342] Flüssigkeitsgleichgewicht und Elektrolyte (Natrium, Kalium, Kalzium, Phosphat) sowie Säure im Blut können nicht mehr gesteuert werden. [cite: 343]<br><br><h4>Laborwert: Kreatinin [cite: 344]</h4>Stoffwechselprodukt aus Muskeln. [cite: 345] Kreatinin-Clearance ist ein Mass für die ausgeschiedene Menge und schätzt die glomeruläre Filtrationsrate (GFR) ab. [cite: 346, 347, 348]<br><br><h4>Radiologie [cite: 349]</h4>Vor intravasaler Kontrastmittelgabe geprüft. [cite: 350] Kontrastmittel wird über Niere ausgeschieden; bei Insuffizienz gestört/verlangsamt = verweilt zu lange = Nebenwirkungen. [cite: 351]"
+                    }
+                ]
+            }
         };
 
-        let currentDeckKey = "";
+        // SYSTEM STATE
+        let activeDeckKey = "";
         let currentIndex = 0;
-        let wrongCards = []; 
         let isTrainingMode = false;
 
+        // Initialize App
         function init() {
-            const storedWrongs = localStorage.getItem('med_wrong_cards_v3');
-            if(storedWrongs) {
-                wrongCards = JSON.parse(storedWrongs);
-            }
-            updateWrongCount();
-
-            const deckSelect = document.getElementById('deck-select');
-            deckSelect.innerHTML = "";
-            for(let key in decks) {
-                let opt = document.createElement("option");
-                opt.value = key;
-                opt.textContent = key;
-                deckSelect.appendChild(opt);
-            }
-
-            currentDeckKey = Object.keys(decks)[0];
-            updateView();
-            setupSwipe();
+            renderHomeScreen();
+            setupSwipeLogic();
         }
 
-        function updateWrongCount() {
-            document.getElementById('wrong-count').innerText = wrongCards.length;
-            if(wrongCards.length === 0 && isTrainingMode) {
-                toggleTrainingMode(); 
+        // Return Wrong Cards from LocalStorage
+        function getWrongCards(deckKey) {
+            const stored = localStorage.getItem('med_fails_' + deckKey);
+            return stored ? JSON.parse(stored) : [];
+        }
+
+        function saveWrongCards(deckKey, cardsArray) {
+            localStorage.setItem('med_fails_' + deckKey, JSON.stringify(cardsArray));
+            renderHomeScreen(); // Update counts
+        }
+
+        // Render Decks on Home Screen
+        function renderHomeScreen() {
+            const list = document.getElementById('deck-list');
+            list.innerHTML = "";
+            
+            for (let key in data) {
+                const totalCards = data[key].cards.length;
+                const wrongCount = getWrongCards(key).length;
+                const color = data[key].color;
+
+                const cardHTML = `
+                    <div class="deck-card" style="background: ${color}">
+                        <div class="eyes">
+                            <div class="eye"></div><div class="eye"></div>
+                        </div>
+                        <h2 class="deck-title">${key}</h2>
+                        <div class="deck-info">${totalCards} Cards</div>
+                        
+                        <div class="deck-actions">
+                            <button class="action-btn play" onclick="startDeck('${key}', false)">
+                                ▶ Start
+                            </button>
+                            ${wrongCount > 0 ? `
+                            <button class="action-btn" onclick="startDeck('${key}', true)">
+                                ↻ Fails <span class="fail-badge">${wrongCount}</span>
+                            </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+                list.insertAdjacentHTML('beforeend', cardHTML);
             }
         }
 
-        function changeDeck() {
-            if(isTrainingMode) return;
-            currentDeckKey = document.getElementById('deck-select').value;
+        // Start Learning
+        function startDeck(key, training) {
+            activeDeckKey = key;
+            isTrainingMode = training;
             currentIndex = 0;
-            updateView();
+
+            document.getElementById('home-screen').style.display = 'none';
+            document.getElementById('learn-screen').style.display = 'flex';
+            
+            updateCardView();
         }
 
-        function toggleTrainingMode() {
-            isTrainingMode = !isTrainingMode;
-            
-            if(isTrainingMode) {
-                if(wrongCards.length === 0) {
-                    alert("Super! Aktuell keine falschen Karten im Speicher.");
-                    isTrainingMode = false;
-                    return;
+        function goHome() {
+            document.getElementById('home-screen').style.display = 'flex';
+            document.getElementById('learn-screen').style.display = 'none';
+        }
+
+        function getActiveCardSet() {
+            return isTrainingMode ? getWrongCards(activeDeckKey) : data[activeDeckKey].cards;
+        }
+
+        // Update the visual card
+        function updateCardView() {
+            const cards = getActiveCardSet();
+            if (!cards || cards.length === 0) {
+                if (isTrainingMode) {
+                    alert("All fails cleared!");
+                    goHome();
+                } else {
+                    goHome();
                 }
-                document.getElementById('deck-select').style.display = 'none';
-                document.getElementById('btn-training').style.display = 'none';
-                document.getElementById('btn-normal').style.display = 'block';
-                currentIndex = 0;
-            } else {
-                document.getElementById('deck-select').style.display = 'block';
-                document.getElementById('btn-training').style.display = 'flex';
-                document.getElementById('btn-normal').style.display = 'none';
-                currentIndex = 0;
+                return;
             }
-            updateView();
-        }
 
-        function getActiveCards() {
-            return isTrainingMode ? wrongCards : decks[currentDeckKey];
-        }
+            if (currentIndex >= cards.length) currentIndex = 0;
 
-        function updateView() {
-            let cards = getActiveCards();
-            if(!cards || cards.length === 0) return;
-            
-            if(currentIndex >= cards.length) currentIndex = 0;
-            
             const flashcard = document.getElementById('flashcard');
-            flashcard.style.transition = 'none'; 
+            flashcard.style.transition = 'none';
             flashcard.style.transform = 'translateX(0) rotate(0)';
             flashcard.classList.remove('is-flipped');
             
-            // Random Color für die Vorderseite
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            
+            // Hide desktop controls until flipped
+            document.getElementById('desktop-controls').classList.remove('visible');
+
             setTimeout(() => {
                 const front = document.getElementById('card-front');
                 front.innerHTML = cards[currentIndex].q;
-                front.style.backgroundColor = randomColor;
+                front.style.backgroundColor = data[activeDeckKey].color;
                 
                 document.getElementById('card-back').innerHTML = cards[currentIndex].a;
                 document.getElementById('progress').innerText = `${currentIndex + 1} / ${cards.length}`;
-                flashcard.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                
+                flashcard.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
             }, 50);
         }
 
-        function markCorrect() {
-            let cards = getActiveCards();
-            let currentCard = cards[currentIndex];
+        // FLIP LOGIC
+        function flipCard() {
+            const card = document.getElementById('flashcard');
+            card.classList.toggle('is-flipped');
+            
+            // Show/hide desktop buttons based on flip state
+            if (card.classList.contains('is-flipped')) {
+                document.getElementById('desktop-controls').classList.add('visible');
+                card.style.transform = 'rotateY(180deg)';
+            } else {
+                document.getElementById('desktop-controls').classList.remove('visible');
+                card.style.transform = 'translateX(0) rotate(0)';
+            }
+        }
 
-            wrongCards = wrongCards.filter(c => c.q !== currentCard.q);
-            localStorage.setItem('med_wrong_cards_v3', JSON.stringify(wrongCards));
-            updateWrongCount();
+        // MARKING LOGIC
+        function markCorrect() {
+            const cardElement = document.getElementById('flashcard');
+            if (!cardElement.classList.contains('is-flipped')) {
+                shakeCard(); return;
+            }
+
+            const cards = getActiveCardSet();
+            const currentCard = cards[currentIndex];
+            let wrongs = getWrongCards(activeDeckKey);
+
+            wrongs = wrongs.filter(c => c.q !== currentCard.q);
+            saveWrongCards(activeDeckKey, wrongs);
 
             animateSwipe('right');
         }
 
         function markWrong() {
-            let cards = getActiveCards();
-            let currentCard = cards[currentIndex];
-
-            if(!wrongCards.some(c => c.q === currentCard.q)) {
-                wrongCards.push(currentCard);
-                localStorage.setItem('med_wrong_cards_v3', JSON.stringify(wrongCards));
+            const cardElement = document.getElementById('flashcard');
+            if (!cardElement.classList.contains('is-flipped')) {
+                shakeCard(); return;
             }
-            updateWrongCount();
+
+            const cards = getActiveCardSet();
+            const currentCard = cards[currentIndex];
+            let wrongs = getWrongCards(activeDeckKey);
+
+            if (!wrongs.some(c => c.q === currentCard.q)) {
+                wrongs.push(currentCard);
+                saveWrongCards(activeDeckKey, wrongs);
+            }
 
             animateSwipe('left');
         }
 
         function animateSwipe(direction) {
             const card = document.getElementById('flashcard');
+            card.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
             
+            // Note: Since card is flipped (180deg), we must maintain the Y rotation while swiping
             if(direction === 'right') {
-                card.style.transform = 'translateX(150%) rotate(20deg)';
+                card.style.transform = 'translateX(150%) rotateY(180deg) rotate(20deg)';
             } else {
-                card.style.transform = 'translateX(-150%) rotate(-20deg)';
+                card.style.transform = 'translateX(-150%) rotateY(180deg) rotate(-20deg)';
             }
 
             setTimeout(() => {
-                if(!(isTrainingMode && direction === 'right')) {
+                if (!(isTrainingMode && direction === 'right')) {
                     currentIndex++;
                 }
-                updateView();
-            }, 300); 
+                updateCardView();
+            }, 350);
         }
 
-        function setupSwipe() {
+        function shakeCard() {
+            const card = document.getElementById('flashcard');
+            card.classList.remove('shake');
+            void card.offsetWidth; // trigger reflow
+            card.classList.add('shake');
+        }
+
+        // TOUCH & SWIPE HANDLING
+        function setupSwipeLogic() {
             const container = document.getElementById('card-container');
             let startX = 0;
             let currentX = 0;
@@ -625,32 +763,33 @@
             }, {passive: true});
 
             container.addEventListener('touchmove', (e) => {
-                if(!isDragging) return;
+                if (!isDragging) return;
+                
+                const card = document.getElementById('flashcard');
+                // Only allow swiping if flipped
+                if (!card.classList.contains('is-flipped')) return;
+
                 currentX = e.touches[0].clientX;
                 const diffX = currentX - startX;
                 
-                const card = document.getElementById('flashcard');
                 card.style.transition = 'none';
-                
                 let rotate = diffX * 0.05;
-                if (!card.classList.contains('is-flipped')) {
-                     card.style.transform = `translateX(${diffX}px) rotate(${rotate}deg)`;
-                } else {
-                     card.style.transform = `translateX(${diffX}px) rotateY(180deg) rotate(${rotate}deg)`;
-                }
+                card.style.transform = `translateX(${diffX}px) rotateY(180deg) rotate(${rotate}deg)`;
             }, {passive: true});
 
             container.addEventListener('touchend', (e) => {
                 isDragging = false;
                 const card = document.getElementById('flashcard');
-                card.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
                 
-                if(currentX === 0) {
-                    card.classList.toggle('is-flipped');
-                    card.style.transform = card.classList.contains('is-flipped') ? 'rotateY(180deg)' : 'translateX(0) rotate(0)';
+                // If it was just a tap (no movement)
+                if (currentX === 0) {
+                    flipCard();
                     return;
                 }
 
+                if (!card.classList.contains('is-flipped')) return;
+
+                card.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
                 const diffX = currentX - startX;
                 const timeDiff = new Date().getTime() - startTime;
                 
@@ -659,20 +798,18 @@
                 } else if (diffX < -80 || (diffX < -30 && timeDiff < 250)) {
                     markWrong();
                 } else {
-                    if (card.classList.contains('is-flipped')) {
-                        card.style.transform = 'rotateY(180deg)';
-                    } else {
-                        card.style.transform = 'translateX(0) rotate(0)';
-                    }
+                    card.style.transform = 'rotateY(180deg)';
                 }
                 currentX = 0; 
             });
             
-            container.addEventListener('click', (e) => {
-                if(currentX === 0) {
-                    const card = document.getElementById('flashcard');
-                    card.classList.toggle('is-flipped');
-                    card.style.transform = card.classList.contains('is-flipped') ? 'rotateY(180deg)' : 'translateX(0) rotate(0)';
+            // Mouse click support for flipping
+            container.addEventListener('mousedown', (e) => {
+                startX = e.clientX;
+            });
+            container.addEventListener('mouseup', (e) => {
+                if (Math.abs(e.clientX - startX) < 10) {
+                    flipCard();
                 }
             });
         }
